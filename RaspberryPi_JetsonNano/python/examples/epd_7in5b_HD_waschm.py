@@ -22,7 +22,7 @@ try:
     response = urllib.urlopen(temperature_url)
     data = json.loads(response.read())
     logging.info(data)
-    
+
 except IOError as e:
     logging.info(e)
 
@@ -36,7 +36,7 @@ try:
     epd.Clear()
 
     font24 = ImageFont.truetype(os.path.join(picdir, 'LiberationMono-Regular.ttf'), 24)
-    font18 = ImageFont.truetype(os.path.join(picdir, 'LiberationMono-Regular.ttf'), 18)
+    font36 = ImageFont.truetype(os.path.join(picdir, 'LiberationMono-Regular.ttf'), 36)
 
     # Drawing on the Vertical image
     logging.info("1.Drawing on the Horizontal image...")
@@ -44,8 +44,8 @@ try:
     red = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
     draw_black = ImageDraw.Draw(black)
     draw_red = ImageDraw.Draw(red)
-    draw_red.text((10, 0), 'Informationsdisplay Waschmühle', font = font24, fill = 0)
-    draw_black.text((10, 25), 'Wassertemperatur: 23.5°C', font = font24, fill = 0)
+    draw_red.text((10, 0), 'Informationsdisplay Waschmühle', font = font36, fill = 0)
+    draw_black.text((10, 30), 'Wassertemperatur: 23.5°C', font = font24, fill = 0)
     epd.display(epd.getbuffer(black), epd.getbuffer(red))
     time.sleep(5)
 
