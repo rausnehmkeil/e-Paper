@@ -48,31 +48,31 @@ try:
     font24 = ImageFont.truetype(os.path.join(picdir, 'LiberationMono-Regular.ttf'), 24)
     font36 = ImageFont.truetype(os.path.join(picdir, 'LiberationMono-Regular.ttf'), 36)
     font72 = ImageFont.truetype(os.path.join(picdir, 'LiberationMono-Regular.ttf'), 72)
+    font218 = ImageFont.truetype(os.path.join(picdir, 'LiberationMono-Regular.ttf'), 218)
 
-    # Drawing on the Vertical image
+    # Drawing on the Vertical image (resolution: 880x528)
     logging.info("1.Drawing on the Horizontal image...")
     black = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
     red = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
     draw_black = ImageDraw.Draw(black)
     draw_red = ImageDraw.Draw(red)
-    draw_red.text((10, 0), 'Informationsdisplay Waschmühle', font = font36, fill = 0)
-    draw_black.line((10, 36, 790, 36), fill = 0)
-    draw_black.text((30, 40), str(temperature_water), font = font72, fill = 0)
-    draw_black.text((400, 40), str(temperature_air), font = font72, fill = 0)
-    draw_black.text((30, 112), "Wasser", font = font36, fill = 0)
-    draw_black.text((400, 112), "Luft", font = font36, fill = 0)
-    draw_black.line((10, 120, 790, 120), fill = 0)
+    draw_black.text((10, 0), 'Luft', font = font36, fill = 0)
+    draw_black.text((10, 46), str(temperature_air) + "°C", font = font218, fill = 0)
+    draw_black.line((10, 264, 870, 264), fill = 0)
+    draw_black.text((10, 264), str(temperature_water) + "°C", font = font218, fill = 0)
+    draw_black.text((10, 482), "Wasser", font = font36, fill = 0)
+    draw_black.line((293, 10, 293, 518), fill = 0)
 
     #draw_black.text((100, 40), 'Aktuelle Besucher: '+ str(guest_counter), font = font24, fill = 0)
     epd.display(epd.getbuffer(black), epd.getbuffer(red))
-    time.sleep(5)
+    #time.sleep(5)
 
-    logging.info("Clear...")
-    epd.init()
-    epd.Clear()
+    #logging.info("Clear...")
+    #epd.init()
+    #epd.Clear()
 
-    logging.info("Goto Sleep...")
-    epd.sleep()
+    #logging.info("Goto Sleep...")
+    #epd.sleep()
     
 except IOError as e:
     logging.info(e)
