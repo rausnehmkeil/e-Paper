@@ -47,6 +47,7 @@ try:
     epd.Clear()
 
     font36 = ImageFont.truetype(os.path.join(fontdir, 'Oswald-Regular.ttf'), 36)
+    font72 = ImageFont.truetype(os.path.join(fontdir, 'Oswald-Regular.ttf'), 72)
     font218 = ImageFont.truetype(os.path.join(fontdir, 'Oswald-Light.ttf'), 218)
 
     # Drawing on the Vertical image (resolution: 880x528)
@@ -55,11 +56,13 @@ try:
     red = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
     draw_black = ImageDraw.Draw(black)
     draw_red = ImageDraw.Draw(red)
-    draw_black.text((10, 10), "Luft", font = font36, fill = 0)
-    draw_black.text((10, 0), str(temperature_air), font = font218, fill = 0)
+    draw_black.text((10, -36), str(temperature_air), font = font218, fill = 0)
+    draw_black.text((200, -36), u"°C", font = font72, fill = 0)
+    draw_black.text((200, 36), "Luft", font = font72, fill = 0)
     draw_black.line((10, 264, 870, 264), fill = 0)
     draw_black.text((10, 228), str(temperature_water), font = font218, fill = 0)
-    draw_black.text((10, 482), "Wasser", font = font36, fill = 0)
+    draw_black.text((200, 228), u"°C", font = font72, fill = 0)
+    draw_black.text((200, 300), "wasser", font = font72, fill = 0)
     draw_black.line((587, 10, 587, 518), fill = 0)
 
     #draw_black.text((100, 40), 'Aktuelle Besucher: '+ str(guest_counter), font = font24, fill = 0)
