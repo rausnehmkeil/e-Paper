@@ -25,6 +25,11 @@ try:
     logging.info(data)
     logging.info("Wassertemperatur: " + str(temperature_water))
 
+    guest_counter_url = 'https://www3.kaiserslautern.de/smartcounter/json/counter.json'
+    response = urllib.urlopen(guest_counter_url)
+    data = json.loads(response.read())
+    logging.info(data)
+
 except IOError as e:
     logging.info(e)
 
@@ -47,7 +52,8 @@ try:
     draw_black = ImageDraw.Draw(black)
     draw_red = ImageDraw.Draw(red)
     draw_red.text((10, 0), 'Informationsdisplay Waschmühle', font = font36, fill = 0)
-    draw_black.text((10, 30), 'Wassertemperatur: 23.5°C', font = font24, fill = 0)
+    draw_black.text((10, 36), 'Wassertemperatur: '+ temperature_water, font = font24, fill = 0)
+    draw_black.text((10, 56), 'Aktuelle Besucher: '+ guest_counter, font = font24, fill = 0)
     epd.display(epd.getbuffer(black), epd.getbuffer(red))
     time.sleep(5)
 
