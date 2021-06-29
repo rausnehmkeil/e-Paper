@@ -46,8 +46,8 @@ try:
     epd.init()
     epd.Clear()
 
-    font36 = ImageFont.truetype(os.path.join(picdir, 'Oswald-Regular.ttf'), 36)
-    font218 = ImageFont.truetype(os.path.join(picdir, 'Oswald-Light.ttf'), 218)
+    font36 = ImageFont.truetype(os.path.join(fontdir, 'Oswald-Regular.ttf'), 36)
+    font218 = ImageFont.truetype(os.path.join(fontdir, 'Oswald-Light.ttf'), 218)
 
     # Drawing on the Vertical image (resolution: 880x528)
     logging.info("1.Drawing on the Horizontal image...")
