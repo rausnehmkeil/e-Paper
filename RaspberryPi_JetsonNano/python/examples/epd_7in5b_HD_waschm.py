@@ -33,8 +33,8 @@ try:
     Other = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
     draw_Himage = ImageDraw.Draw(Himage)
     draw_other = ImageDraw.Draw(Other)
-    draw_Himage.text((10, 0), 'hello world', font = font24, fill = 0)
-    draw_Himage.text((10, 20), '7.5inch e-Paper', font = font24, fill = 0)
+    draw_other.text((10, 0), 'Informationsdisplay Waschmühle', font = font24, fill = 0)
+    draw_Himage.text((10, 20), 'Wassertemperatur: 23.5°C', font = font24, fill = 0)
     epd.display(epd.getbuffer(Himage), epd.getbuffer(Other))
     time.sleep(5)
 
