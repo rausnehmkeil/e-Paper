@@ -23,7 +23,7 @@ try:
     data = json.loads(response.read())
     temperature_water = data['data']['external_temperature_1']
     logging.info(data)
-    logging.info("Wassertemperatur: " + temperature_water)
+    logging.info("Wassertemperatur: " + str(temperature_water))
 
 except IOError as e:
     logging.info(e)
