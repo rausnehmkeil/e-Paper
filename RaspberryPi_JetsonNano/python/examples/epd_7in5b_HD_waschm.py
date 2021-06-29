@@ -21,7 +21,9 @@ try:
     temperature_url = 'https://www.kaiserslautern.de/export/baeder/waschmuehle_temperature.json'
     response = urllib.urlopen(temperature_url)
     data = json.loads(response.read())
+    temperature_water = data['data']['external_temperature_1']
     logging.info(data)
+    logging.info("Wassertemperatur: " + temperature_water)
 
 except IOError as e:
     logging.info(e)
