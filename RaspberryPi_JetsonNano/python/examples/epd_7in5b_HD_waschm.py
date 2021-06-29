@@ -22,6 +22,7 @@ try:
     response = urllib.urlopen(temperature_url)
     data = json.loads(response.read())
     temperature_water = data['data']['external_temperature_1']
+    temperature_air = data['data']['temperature']
     logging.info(data)
     logging.info("Wassertemperatur: " + str(temperature_water))
 
@@ -46,6 +47,7 @@ try:
 
     font24 = ImageFont.truetype(os.path.join(picdir, 'LiberationMono-Regular.ttf'), 24)
     font36 = ImageFont.truetype(os.path.join(picdir, 'LiberationMono-Regular.ttf'), 36)
+    font72 = ImageFont.truetype(os.path.join(picdir, 'LiberationMono-Regular.ttf'), 72)
 
     # Drawing on the Vertical image
     logging.info("1.Drawing on the Horizontal image...")
@@ -54,8 +56,13 @@ try:
     draw_black = ImageDraw.Draw(black)
     draw_red = ImageDraw.Draw(red)
     draw_red.text((10, 0), 'Informationsdisplay Waschmühle', font = font36, fill = 0)
-    draw_black.text((10, 36), 'Wassertemperatur: '+ str(temperature_water), font = font24, fill = 0)
-    draw_black.text((10, 56), 'Aktuelle Besucher: '+ str(guest_counter), font = font24, fill = 0)
+    draw_black.line((10, 36, 70, 100), fill = 0)
+    draw_black.text((30, 40), str(temperature_water), font = font72, fill = 0)
+    draw_black.text((100, 40), str(temperature_air), font = font72, fill = 0)
+    draw_black.text((30, 112), "Wasser", font = font72, fill = 0)
+    draw_black.text((100, 112), "Luft", font = font72, fill = 0)
+
+    #draw_black.text((100, 40), 'Aktuelle Besucher: '+ str(guest_counter), font = font24, fill = 0)
     epd.display(epd.getbuffer(black), epd.getbuffer(red))
     time.sleep(5)
 
