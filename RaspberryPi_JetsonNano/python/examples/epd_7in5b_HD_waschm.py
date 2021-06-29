@@ -24,18 +24,18 @@ try:
     epd.init()
     epd.Clear()
 
-    font24 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 24)
-    font18 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 18)
+    font24 = ImageFont.truetype(os.path.join(picdir, 'LiberationMono-Regular.ttf'), 24)
+    font18 = ImageFont.truetype(os.path.join(picdir, 'LiberationMono-Regular.ttf'), 18)
 
     # Drawing on the Vertical image
-    logging.info("2.Drawing on the Vertical image...")
-    Limage = Image.new('1', (epd.height, epd.width), 255)  # 255: clear the frame
-    Limage_Other = Image.new('1', (epd.height, epd.width), 255)  # 255: clear the frame
-    draw_Himage = ImageDraw.Draw(Limage)
-    draw_Himage_Other = ImageDraw.Draw(Limage_Other)
-    draw_Himage.text((2, 0), 'Hallo Welt', font = font18, fill = 0)
-    draw_Himage.text((2, 20), 'Das ist das Display für die Waschmühle!', font = font18, fill = 0)
-    epd.display(epd.getbuffer(Limage), epd.getbuffer(Limage_Other))
+    logging.info("1.Drawing on the Horizontal image...")
+    Himage = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
+    Other = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
+    draw_Himage = ImageDraw.Draw(Himage)
+    draw_other = ImageDraw.Draw(Other)
+    draw_Himage.text((10, 0), 'hello world', font = font24, fill = 0)
+    draw_Himage.text((10, 20), '7.5inch e-Paper', font = font24, fill = 0)
+    epd.display(epd.getbuffer(Himage), epd.getbuffer(Other))
     time.sleep(5)
 
     logging.info("Clear...")
