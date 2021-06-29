@@ -4,6 +4,7 @@ import sys
 import os
 picdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'pic')
 libdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'lib')
+fontdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'font')
 if os.path.exists(libdir):
     sys.path.append(libdir)
 
@@ -45,10 +46,8 @@ try:
     epd.init()
     epd.Clear()
 
-    font24 = ImageFont.truetype(os.path.join(picdir, 'LiberationMono-Regular.ttf'), 24)
-    font36 = ImageFont.truetype(os.path.join(picdir, 'LiberationMono-Regular.ttf'), 36)
-    font72 = ImageFont.truetype(os.path.join(picdir, 'LiberationMono-Regular.ttf'), 72)
-    font218 = ImageFont.truetype(os.path.join(picdir, 'LiberationMono-Regular.ttf'), 218)
+    font36 = ImageFont.truetype(os.path.join(picdir, 'Oswald-Regular.ttf'), 36)
+    font218 = ImageFont.truetype(os.path.join(picdir, 'Oswald-Light.ttf'), 218)
 
     # Drawing on the Vertical image (resolution: 880x528)
     logging.info("1.Drawing on the Horizontal image...")
@@ -57,9 +56,9 @@ try:
     draw_black = ImageDraw.Draw(black)
     draw_red = ImageDraw.Draw(red)
     draw_black.text((10, 0), "Luft", font = font36, fill = 0)
-    draw_black.text((10, 46), str(temperature_air) + "\uc2b0C", font = font218, fill = 0)
+    draw_black.text((10, 46), str(temperature_air) + u"°C", font = font218, fill = 0)
     draw_black.line((10, 264, 870, 264), fill = 0)
-    draw_black.text((10, 264), str(temperature_water) + "\uc2b0C", font = font218, fill = 0)
+    draw_black.text((10, 264), str(temperature_water) + u"°C", font = font218, fill = 0)
     draw_black.text((10, 482), "Wasser", font = font36, fill = 0)
     draw_black.line((587, 10, 587, 518), fill = 0)
 
