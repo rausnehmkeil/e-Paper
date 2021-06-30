@@ -19,7 +19,7 @@ import math
 
 logging.basicConfig(level=logging.DEBUG)
 
-def formatTemperature(float temp):
+def formatTemperature(temp):
     split_temp = str(temp).split(".") #split float into integer and fraction part
     temp_int = split_temp[0].zfill(2) #zero padding
     temp_frac = int(5 * round(float(split_temp[1])/5)) #round to 5 or 0
