@@ -60,10 +60,14 @@ try:
     epd.init()
     epd.Clear()
 
+    fontsize = 204
+    padding = 30
+    vmiddle = 264
+
     font36 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), 36)
-    font72 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), 72)
-    font109 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), 109)
-    font218 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), 218)
+    font0em33 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize*0.33)
+    font0em66 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize*0.66)
+    font1em = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize)
 
     # Drawing on the Vertical image (resolution: 880x528)
     logging.info("1.Drawing on the Horizontal image...")
@@ -71,13 +75,13 @@ try:
     red = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
     draw_black = ImageDraw.Draw(black)
     draw_red = ImageDraw.Draw(red)
-    draw_black.text((10, 10), str(temperature_air_int), font = font218, fill = 0)
-    draw_black.text((200, 10), "." + str(temperature_air_frac) + u"°C", font = font109, fill = 0)
-    draw_black.text((200, 109), "Luft", font = font72, fill = 0)
-    draw_black.line((10, 264, 870, 264), fill = 0)
-    draw_black.text((10, 274), str(temperature_water_int), font = font218, fill = 0)
-    draw_black.text((200, 274), "." + str(temperature_water_frac) + u"°C", font = font109, fill = 0)
-    draw_black.text((200, 400), "Wasser", font = font72, fill = 0)
+    draw_black.text((padding, padding), str(temperature_air_int), font = font1em, fill = 0)
+    draw_black.text((padding+fontsize, 200), "." + str(temperature_air_frac) + u"°C", font = font0em66, fill = 0)
+    draw_black.text((padding+fontsize*0.66, 200), "Luft", font = font0em33, fill = 0)
+    draw_black.line((10, vmiddle, 870, vmiddle), fill = 0)
+    draw_black.text((padding, vmiddle+padding), str(temperature_water_int), font = font1em, fill = 0)
+    draw_black.text((200, vmiddle+padding), "." + str(temperature_water_frac) + u"°C", font = font0em66, fill = 0)
+    draw_black.text((200, vmiddle+fontsize*0.66), "Wasser", font = font0em33, fill = 0)
     draw_black.line((587, 10, 587, 518), fill = 0)
 
     #draw_black.text((100, 40), 'Aktuelle Besucher: '+ str(guest_counter), font = font24, fill = 0)
