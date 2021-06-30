@@ -23,8 +23,8 @@ def formatTemperature(temp):
     split_temp = str(temp).split(".") #split float into integer and fraction part
     temp_int = split_temp[0].zfill(2) #zero padding
     if(split_temp[1] <=2 ): temp_frac=0 #round fraction part to 5 or 0
-    if(split_temp[1] >2 and  split_temp[1]<=7): temp_frac=5
-    if(split_temp[1] <7 ): 
+    elif(split_temp[1] >2 and  split_temp[1]<=7): temp_frac=5
+    else :
         temp_frac=0
         temp_int += 1    
     return temp_int, temp_frac
