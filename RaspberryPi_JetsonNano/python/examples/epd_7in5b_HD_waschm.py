@@ -30,10 +30,10 @@ try:
     temperature_url = 'https://www.kaiserslautern.de/export/baeder/waschmuehle_temperature.json'
     response = urllib.urlopen(temperature_url)
     data = json.loads(response.read())
-    temperature_water = data['data']['external_temperature_1']
+    temperature_water = float(data['data']['external_temperature_1'])
     temperature_water_int, temperature_water_frac = formatTemperature(temperature_water)
 
-    temperature_air = data['data']['temperature']
+    temperature_air = float(data['data']['temperature'])
     temperature_air_int, temperature_air_frac = formatTemperature(temperature_air)
     
 
