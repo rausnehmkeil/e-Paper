@@ -64,7 +64,7 @@ try:
     draw_black.text((370, 36), u"°C", font = font72, fill = 0)
     draw_black.text((370, 108), "Luft", font = font72, fill = 0)
     draw_black.line((10, 264, 870, 264), fill = 0)
-    draw_black.text((10, 228), str(temperature_water_integer), font = font218, fill = 0)
+    draw_black.text((10, 228), str(temperature_water_int), font = font218, fill = 0)
     draw_black.text((370, 300), u"°C", font = font72, fill = 0)
     draw_black.text((370, 372), "Wasser", font = font72, fill = 0)
     draw_black.line((587, 10, 587, 518), fill = 0)
