@@ -62,6 +62,7 @@ try:
 
     font36 = ImageFont.truetype(os.path.join(fontdir, 'Oswald-Regular.ttf'), 36)
     font72 = ImageFont.truetype(os.path.join(fontdir, 'Oswald-Regular.ttf'), 72)
+    font109 = ImageFont.truetype(os.path.join(fontdir, 'Oswald-Light.ttf'), 109)
     font218 = ImageFont.truetype(os.path.join(fontdir, 'Oswald-Light.ttf'), 218)
 
     # Drawing on the Vertical image (resolution: 880x528)
@@ -70,11 +71,13 @@ try:
     red = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
     draw_black = ImageDraw.Draw(black)
     draw_red = ImageDraw.Draw(red)
-    draw_black.text((10, -36), str(temperature_air_int + "." + temperature_air_frac), font = font218, fill = 0)
+    draw_black.text((10, -36), str(temperature_air_int) + ".", font = font218, fill = 0)
+    draw_black.text((100, -36), str(temperature_air_frac), font = font109, fill = 0)
     draw_black.text((370, 36), u"°C", font = font72, fill = 0)
     draw_black.text((370, 108), "Luft", font = font72, fill = 0)
     draw_black.line((10, 264, 870, 264), fill = 0)
-    draw_black.text((10, 228), str(temperature_water_int) + "." + temperature_water_frac, font = font218, fill = 0)
+    draw_black.text((10, 228), str(temperature_water_int) + ".", font = font218, fill = 0)
+    draw_black.text((100, 228), str(temperature_water_frac), font = font109, fill = 0)
     draw_black.text((370, 300), u"°C", font = font72, fill = 0)
     draw_black.text((370, 372), "Wasser", font = font72, fill = 0)
     draw_black.line((587, 10, 587, 518), fill = 0)
