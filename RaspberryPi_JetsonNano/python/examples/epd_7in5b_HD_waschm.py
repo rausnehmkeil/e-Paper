@@ -61,8 +61,8 @@ try:
     epd.Clear()
 
     fontsize = 204
-    fontsize0em66 = round(fontsize*0.66)
-    fontsize0em33 = round(fontsize*0.33)
+    fontsize0em66 = int(fontsize*0.66)
+    fontsize0em33 = int(fontsize*0.33)
     padding = 30
     vmiddle = 264
 
