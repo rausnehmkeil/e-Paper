@@ -37,8 +37,9 @@ try:
     temperature_air_int, temperature_air_frac = formatTemperature(temperature_air)
     
 
-    logging.info(data)
-    logging.info("Wassertemperatur: " + str(temperature_water_int) + "." + str(temperature_water_frac))
+    logging.debug(data)
+    logging.debug("Wassertemperatur: " + str(temperature_water_int) + "." + str(temperature_water_frac))
+    logging.debug("Wassertemperatur: " + str(temperature_air_int) + "." + str(temperature_air_frac))
 
     guest_counter_url = 'https://www3.kaiserslautern.de/smartcounter/json/counter.json'
     response = urllib.urlopen(guest_counter_url)
@@ -69,11 +70,11 @@ try:
     red = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
     draw_black = ImageDraw.Draw(black)
     draw_red = ImageDraw.Draw(red)
-    draw_black.text((10, -36), str(temperature_air), font = font218, fill = 0)
+    draw_black.text((10, -36), str(temperature_air_int + "." + temperature_air_frac), font = font218, fill = 0)
     draw_black.text((370, 36), u"°C", font = font72, fill = 0)
     draw_black.text((370, 108), "Luft", font = font72, fill = 0)
     draw_black.line((10, 264, 870, 264), fill = 0)
-    draw_black.text((10, 228), str(temperature_water_int), font = font218, fill = 0)
+    draw_black.text((10, 228), str(temperature_water_int) + "." + temperature_water_frac, font = font218, fill = 0)
     draw_black.text((370, 300), u"°C", font = font72, fill = 0)
     draw_black.text((370, 372), "Wasser", font = font72, fill = 0)
     draw_black.line((587, 10, 587, 518), fill = 0)
