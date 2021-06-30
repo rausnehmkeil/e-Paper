@@ -64,11 +64,11 @@ try:
     epd.init()
     epd.Clear()
 
-    fontsize = 220
-    fontsize0em66 = int(fontsize*0.66)
-    fontsize0em33 = int(fontsize*0.33-10)
     padding = 40
     vmiddle = 264
+    fontsize = 220
+    fontsize0em66 = int(fontsize*0.66)
+    fontsize0em33 = int(fontsize*0.33-padding)
 
     font36 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), 36)
     font0em33 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize0em33)
@@ -83,11 +83,11 @@ try:
     draw_red = ImageDraw.Draw(red)
     draw_black.text((padding, padding), str(temperature_air_int), font = font1em, fill = 0)
     draw_black.text((240, padding), "." + str(temperature_air_frac) + u"°C", font = font0em66, fill = 0)
-    draw_black.text((240, fontsize0em66), "Luft", font = font0em33, fill = 0)
+    draw_black.text((240, padding+fontsize0em66), "Luft", font = font0em33, fill = 0)
     draw_black.line((10, vmiddle, 870, vmiddle), fill = 0)
     draw_black.text((padding, vmiddle+padding), str(temperature_water_int), font = font1em, fill = 0)
     draw_black.text((240, vmiddle+padding), "." + str(temperature_water_frac) + u"°C", font = font0em66, fill = 0)
-    draw_black.text((240, vmiddle+fontsize0em66), "Wasser", font = font0em33, fill = 0)
+    draw_black.text((240, vmiddle+padding+fontsize0em66), "Wasser", font = font0em33, fill = 0)
     draw_black.line((587, 10, 587, 518), fill = 0)
 
     #draw_black.text((100, 40), 'Aktuelle Besucher: '+ str(guest_counter), font = font24, fill = 0)
