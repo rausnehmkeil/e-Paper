@@ -71,13 +71,13 @@ try:
     red = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
     draw_black = ImageDraw.Draw(black)
     draw_red = ImageDraw.Draw(red)
-    draw_black.text((10, -36), str(temperature_air_int), font = font218, fill = 0)
-    draw_black.text((200, 0), "." + str(temperature_air_frac) + u"°C", font = font109, fill = 0)
+    draw_black.text((10, 10), str(temperature_air_int), font = font218, fill = 0)
+    draw_black.text((200, 10), "." + str(temperature_air_frac) + u"°C", font = font109, fill = 0)
     draw_black.text((200, 109), "Luft", font = font72, fill = 0)
     draw_black.line((10, 264, 870, 264), fill = 0)
-    draw_black.text((10, 228), str(temperature_water_int), font = font218, fill = 0)
-    draw_black.text((200, 264), "." + str(temperature_water_frac) + u"°C", font = font109, fill = 0)
-    draw_black.text((200, 373), "Wasser", font = font72, fill = 0)
+    draw_black.text((10, 274), str(temperature_water_int), font = font218, fill = 0)
+    draw_black.text((200, 274), "." + str(temperature_water_frac) + u"°C", font = font109, fill = 0)
+    draw_black.text((200, 400), "Wasser", font = font72, fill = 0)
     draw_black.line((587, 10, 587, 518), fill = 0)
 
     #draw_black.text((100, 40), 'Aktuelle Besucher: '+ str(guest_counter), font = font24, fill = 0)
