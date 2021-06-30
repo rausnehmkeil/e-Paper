@@ -22,7 +22,11 @@ logging.basicConfig(level=logging.DEBUG)
 def formatTemperature(temp):
     split_temp = str(temp).split(".") #split float into integer and fraction part
     temp_int = split_temp[0].zfill(2) #zero padding
-    temp_frac = int(5 * round(float(split_temp[1])/5)) #round to 5 or 0
+    if(split_temp[1] <=2 ): temp_frac=0 #round fraction part to 5 or 0
+    if(split_temp[1] >2 and  split_temp[1]<=7): temp_frac=5
+    if(split_temp[1] <7 ): 
+        temp_frac=0
+        temp_int += 1    
     return temp_int, temp_frac
 
 
@@ -60,10 +64,10 @@ try:
     epd.init()
     epd.Clear()
 
-    fontsize = 204
+    fontsize = 220
     fontsize0em66 = int(fontsize*0.66)
     fontsize0em33 = int(fontsize*0.33-10)
-    padding = 30
+    padding = 40
     vmiddle = 264
 
     font36 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), 36)
