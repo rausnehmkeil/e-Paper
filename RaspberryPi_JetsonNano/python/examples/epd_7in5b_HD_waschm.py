@@ -24,7 +24,9 @@ try:
     response = urllib.urlopen(temperature_url)
     data = json.loads(response.read())
     temperature_water = data['data']['external_temperature_1']
-    temperature_water_integer, temperature_water_fraction = divmod(temperature_water,1) #split float into integer and fraction part
+    split_temperature_water = str(temperature_water).split(".") #split float into integer and fraction part
+    temperature_water_int = split_temperature_water[0]
+    temperature_water_frac = split_temperature_water[1]
     temperature_air = data['data']['temperature']
     logging.info(data)
     logging.info("Wassertemperatur: " + str(temperature_water_integer) + "." + str(temperature_water_fraction))
