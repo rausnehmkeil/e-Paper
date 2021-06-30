@@ -66,13 +66,13 @@ try:
 
     padding = 40
     vmiddle = 264
-    fontsize = 220
+    fontsize = 240
     fontsize0em66 = int(fontsize*0.66)
-    fontsize0em33 = int(fontsize*0.33)
+    fontsize0em33 = int(fontsize*0.33-10)
 
     font36 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), 36)
     font0em33 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize0em33)
-    font0em66 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), fontsize0em66)
+    font0em66 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize0em66)
     font1em = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize)
 
     # Drawing on the Vertical image (resolution: 880x528)
