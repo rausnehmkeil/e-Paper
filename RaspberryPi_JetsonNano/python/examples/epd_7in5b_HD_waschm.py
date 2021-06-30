@@ -19,15 +19,24 @@ import math
 
 logging.basicConfig(level=logging.DEBUG)
 
+def formatTemperature(float temp):
+    split_temp = str(temp).split(".") #split float into integer and fraction part
+    temp_int = split_temp[0].zfill(2) #zero padding
+    temp_frac = int(5 * round(float(split_temp[1])/5)) #round to 5 or 0
+    return temp_int, temp_frac
+
+
 try:
     temperature_url = 'https://www.kaiserslautern.de/export/baeder/waschmuehle_temperature.json'
     response = urllib.urlopen(temperature_url)
     data = json.loads(response.read())
     temperature_water = data['data']['external_temperature_1']
-    split_temperature_water = str(temperature_water).split(".") #split float into integer and fraction part
-    temperature_water_int = split_temperature_water[0].zfill(2)
-    temperature_water_frac = int(5 * round(float(split_temperature_water[1])/5)) #round to 5 or 0
+    temperature_water_int, temperature_water_frac = formatTemperature(temperature_water)
+
     temperature_air = data['data']['temperature']
+    temperature_air_int, temperature_air_frac = formatTemperature(temperature_air)
+    
+
     logging.info(data)
     logging.info("Wassertemperatur: " + str(temperature_water_int) + "." + str(temperature_water_frac))
 
