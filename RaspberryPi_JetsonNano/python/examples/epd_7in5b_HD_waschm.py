@@ -15,6 +15,7 @@ from PIL import Image,ImageDraw,ImageFont
 import traceback
 
 import urllib, json
+import math
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -23,9 +24,10 @@ try:
     response = urllib.urlopen(temperature_url)
     data = json.loads(response.read())
     temperature_water = data['data']['external_temperature_1']
+    temperature_water_integer, temperature_water_fraction = divmod(temperature_water) #split float into integer and fraction part
     temperature_air = data['data']['temperature']
     logging.info(data)
-    logging.info("Wassertemperatur: " + str(temperature_water))
+    logging.info("Wassertemperatur: " + str(temperature_water_integer) + "." + str(temperature_water_fraction))
 
     guest_counter_url = 'https://www3.kaiserslautern.de/smartcounter/json/counter.json'
     response = urllib.urlopen(guest_counter_url)
@@ -60,7 +62,7 @@ try:
     draw_black.text((370, 36), u"°C", font = font72, fill = 0)
     draw_black.text((370, 108), "Luft", font = font72, fill = 0)
     draw_black.line((10, 264, 870, 264), fill = 0)
-    draw_black.text((10, 228), str(temperature_water), font = font218, fill = 0)
+    draw_black.text((10, 228), str(temperature_water_integer), font = font218, fill = 0)
     draw_black.text((370, 300), u"°C", font = font72, fill = 0)
     draw_black.text((370, 372), "Wasser", font = font72, fill = 0)
     draw_black.line((587, 10, 587, 518), fill = 0)
