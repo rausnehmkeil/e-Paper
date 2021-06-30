@@ -29,7 +29,7 @@ try:
     temperature_water_frac = split_temperature_water[1]
     temperature_air = data['data']['temperature']
     logging.info(data)
-    logging.info("Wassertemperatur: " + str(temperature_water_integer) + "." + str(temperature_water_fraction))
+    logging.info("Wassertemperatur: " + str(temperature_water_int) + "." + str(temperature_water_frac))
 
     guest_counter_url = 'https://www3.kaiserslautern.de/smartcounter/json/counter.json'
     response = urllib.urlopen(guest_counter_url)
