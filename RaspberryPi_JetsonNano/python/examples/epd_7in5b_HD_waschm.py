@@ -68,7 +68,7 @@ try:
     vmiddle = 264
     fontsize = 220
     fontsize0em66 = int(fontsize*0.66)
-    fontsize0em33 = int(fontsize*0.33-padding)
+    fontsize0em33 = int(fontsize*0.33-20)
 
     font36 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), 36)
     font0em33 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize0em33)
