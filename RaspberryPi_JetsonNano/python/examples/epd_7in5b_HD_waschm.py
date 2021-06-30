@@ -63,7 +63,7 @@ try:
     font36 = ImageFont.truetype(os.path.join(fontdir, 'Oswald-Regular.ttf'), 36)
     font72 = ImageFont.truetype(os.path.join(fontdir, 'Oswald-Regular.ttf'), 72)
     font109 = ImageFont.truetype(os.path.join(fontdir, 'Oswald-Light.ttf'), 109)
-    font109b = ImageFont.truetype(os.path.join(fontdir, 'Oswald-Boldt.ttf'), 109)
+    font109b = ImageFont.truetype(os.path.join(fontdir, 'Oswald-Bold.ttf'), 109)
     font218 = ImageFont.truetype(os.path.join(fontdir, 'Oswald-Light.ttf'), 218)
 
     # Drawing on the Vertical image (resolution: 880x528)
