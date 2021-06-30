@@ -39,7 +39,7 @@ try:
 
     logging.debug(data)
     logging.debug("Wassertemperatur: " + str(temperature_water_int) + "." + str(temperature_water_frac))
-    logging.debug("Wassertemperatur: " + str(temperature_air_int) + "." + str(temperature_air_frac))
+    logging.debug("Lufttemperatur: " + str(temperature_air_int) + "." + str(temperature_air_frac))
 
     guest_counter_url = 'https://www3.kaiserslautern.de/smartcounter/json/counter.json'
     response = urllib.urlopen(guest_counter_url)
@@ -74,11 +74,11 @@ try:
     draw_red = ImageDraw.Draw(red)
     draw_black.text((10, -36), str(temperature_air_int), font = font218, fill = 0)
     draw_black.text((200, 0), "." + str(temperature_air_frac) + u"°C", font = font109b, fill = 0)
-    draw_red.text((200, 109), "Luft", font = font109, fill = 0)
+    draw_black.text((200, 109), "Luft", font = font109, fill = 0)
     draw_black.line((10, 264, 870, 264), fill = 0)
     draw_black.text((10, 228), str(temperature_water_int), font = font218, fill = 0)
     draw_black.text((200, 264), "." + str(temperature_water_frac) + u"°C", font = font109b, fill = 0)
-    draw_red.text((200, 373), "Wasser", font = font109, fill = 0)
+    draw_black.text((200, 373), "Wasser", font = font109, fill = 0)
     draw_black.line((587, 10, 587, 518), fill = 0)
 
     #draw_black.text((100, 40), 'Aktuelle Besucher: '+ str(guest_counter), font = font24, fill = 0)
