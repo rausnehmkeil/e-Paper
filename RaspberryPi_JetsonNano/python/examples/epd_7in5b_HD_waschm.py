@@ -84,14 +84,18 @@ def getData():
 
     return result
 
-def fillBuffer(data):
-    # Drawing on the Vertical image (resolution: 880x528)
-    logging.info("1.Drawing on the Horizontal image...")
+def initBuffer():
+    # (resolution: 880x528)
+    logging.info("Initialising Buffer...")
     black = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
-    #red = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
+    red = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
+    return black, red
+    
+
+
+def fillBuffer(data, black, red):
     draw_black = ImageDraw.Draw(black)
     #draw_red = ImageDraw.Draw(red)
-
     #Temperatures
     draw_black.text((padding, padding), str(data["temperature_air_int"]), font = font1em, fill = 0)
     draw_black.text((290, padding), "." + str(data["temperature_air_frac"]) + u"°C", font = font0em66, fill = 0)
@@ -124,7 +128,8 @@ try:
         epd.init()
         epd.Clear() 
         result = getData()
-        fillBuffer(result)
+        black, red = initBuffer()
+        fillBuffer(result, black, red)
         epd.display(epd.getbuffer(black), epd.getbuffer(red))
         time.sleep(5)
 
