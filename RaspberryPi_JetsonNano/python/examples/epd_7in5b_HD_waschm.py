@@ -19,6 +19,29 @@ from datetime import datetime
 
 logging.basicConfig(level=logging.DEBUG)
 
+
+padding = 40
+vmiddle = 264
+vline = 530
+fontsize = 264
+fontsize0em66 = int(fontsize*0.66)
+fontsize0em33 = int(fontsize*0.33-10)
+
+fontsize_clock = 100
+fontsize_clock0em66 = int(fontsize_clock*0.66)
+fontsize_clock0em50 = int(fontsize_clock*0.50)
+fontsize_clock0em33 = int(fontsize_clock*0.33)
+
+font0em33 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), fontsize0em33)
+font0em66 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize0em66)
+font1em = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize)
+
+font_clock1em = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize_clock)
+font_clock0em66 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize_clock0em66)
+font_clock0em50 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize_clock0em50)
+font_clock0em33 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), fontsize_clock0em33)
+
+
 def formatTemperature(temp):
     split_temp = str(temp).split(".") #split float into integer and fraction part
     temp_int = int(split_temp[0].zfill(2)) #zero padding
@@ -32,7 +55,7 @@ def formatTemperature(temp):
     return temp_int, temp_frac
 
 
-try:
+def getData():
     temperature_url = 'https://www.kaiserslautern.de/export/baeder/waschmuehle_temperature.json'
     response = urllib.urlopen(temperature_url)
     data = json.loads(response.read())
@@ -47,53 +70,10 @@ try:
     time_minutes = now.strftime("%M")
     time_year = now.strftime("%Y")
     time_date = now.strftime("%d.%m.")
-    logging.debug("Today's date:" + time_hours + ":" + time_minutes)
 
-    logging.debug(data)
-    logging.debug("Wassertemperatur: " + str(temperature_water_int) + "." + str(temperature_water_frac))
-    logging.debug("Lufttemperatur: " + str(temperature_air_int) + "." + str(temperature_air_frac))
+    return 0
 
-    guest_counter_url = 'https://www3.kaiserslautern.de/smartcounter/json/counter.json'
-    response = urllib.urlopen(guest_counter_url)
-    data = json.loads(response.read())
-    guest_counter = data[1]['counter']
-    logging.info(data)
-    logging.info("Aktuelle Besucherzahl: " + str(guest_counter))
-
-except IOError as e:
-    logging.info(e)
-
-try:
-    logging.info("epd7in5b_HD Demo")
-
-    epd = epd7in5b_HD.EPD()
-
-    logging.info("init and Clear")
-    epd.init()
-    epd.Clear()
-
-    padding = 40
-    vmiddle = 264
-    vline = 530
-    fontsize = 264
-    fontsize0em66 = int(fontsize*0.66)
-    fontsize0em33 = int(fontsize*0.33-10)
-
-    fontsize_clock = 100
-    fontsize_clock0em66 = int(fontsize_clock*0.66)
-    fontsize_clock0em50 = int(fontsize_clock*0.50)
-    fontsize_clock0em33 = int(fontsize_clock*0.33)
-
-    font0em33 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), fontsize0em33)
-    font0em66 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize0em66)
-    font1em = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize)
-
-    font_clock1em = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize_clock)
-    font_clock0em66 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize_clock0em66)
-    font_clock0em50 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize_clock0em50)
-    font_clock0em33 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), fontsize_clock0em33)
-
-
+def fillBuffer():
     # Drawing on the Vertical image (resolution: 880x528)
     logging.info("1.Drawing on the Horizontal image...")
     black = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
@@ -120,23 +100,25 @@ try:
     draw_black.text((vline+0.5*padding+fontsize_clock+fontsize_clock0em66+padding, padding), time_date, font = font_clock0em50, fill = 0)
     draw_black.text((vline+0.5*padding+fontsize_clock+fontsize_clock0em66+padding, padding+fontsize_clock0em50), time_year, font = font_clock0em50, fill = 0)
     draw_black.line((vline, padding+fontsize_clock, 870, padding+fontsize_clock), fill = 0) #horizontal line
-    
-    
-    #Draw
-    epd.display(epd.getbuffer(black), epd.getbuffer(red))
-    time.sleep(5)
-    epd.Clear()
-    time.sleep(5)
-    epd.display(epd.getbuffer(black), epd.getbuffer(red))
-    time.sleep(5)
-    epd.init()
 
-    #logging.info("Clear...")
-    #epd.init()
-    #epd.Clear()
+    return 0
 
-    #logging.info("Goto Sleep...")
-    #epd.sleep()
+try:
+    logging.info("epd7in5b_HD Demo")
+
+    epd = epd7in5b_HD.EPD()
+
+    while True:
+        logging.info("init and Clear")
+        epd.init()
+        epd.Clear() 
+        getData()
+        fillBuffer()
+        epd.display(epd.getbuffer(black), epd.getbuffer(red))
+        time.sleep(5)
+
+        #logging.info("Goto Sleep...")
+        #epd.sleep()
     
 except IOError as e:
     logging.info(e)
