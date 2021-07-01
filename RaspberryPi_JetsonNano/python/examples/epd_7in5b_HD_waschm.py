@@ -45,7 +45,7 @@ try:
     now = datetime.now()
     time_hours = now.strftime("%H")
     time_minutes = now.strftime("%M")
-    time_year = now.strftime("%y")
+    time_year = now.strftime("%Y")
     time_date = now.strftime("%d.%m.")
     logging.debug("Today's date:" + time_hours + ":" + time_minutes)
 
@@ -111,13 +111,15 @@ try:
 
     #Time
     draw_black.text((vline +padding, padding), time_hours, font = font_clock1em, fill = 0)
-    draw_black.text((vline +padding+fontsize_clock, padding), time_minutes, font = font_clock0em66, fill = 0)
-    draw_black.text((vline +padding+fontsize_clock, padding+fontsize_clock0em66), "Uhr", font = font_clock0em33, fill = 0)
+    draw_black.text((vline +padding+fontsize_clock, padding), ":" + time_minutes, font = font_clock0em66, fill = 0)
+    draw_black.text((vline +padding+fontsize_clock, padding+fontsize_clock0em66-30), "Uhr", font = font_clock0em33, fill = 0)
 
     #Date
-    draw_black.text((vline +padding+fontsize_clock+fontsize_clock0em66, padding), time_date, font = font_clock0em33, fill = 0)
-    draw_black.text((vline +padding+fontsize_clock+fontsize_clock0em66, padding+fontsize_clock0em33), time_year, font = font_clock0em33, fill = 0)
-
+    draw_black.text((vline +padding+fontsize_clock+fontsize_clock0em66, padding), time_date, font = font_clock0em66, fill = 0)
+    draw_black.text((vline +padding+fontsize_clock+fontsize_clock0em66, padding+fontsize_clock0em66), time_year, font = font_clock0em33, fill = 0)
+    draw_black.line((vline, padding+fontsize_clock+padding, 880-padding, padding+fontsize_clock+padding), fill = 0) #horizontal line
+    
+    
     #draw_black.text((100, 40), 'Aktuelle Besucher: '+ str(guest_counter), font = font24, fill = 0)
     epd.display(epd.getbuffer(black), epd.getbuffer(red))
     #time.sleep(5)
