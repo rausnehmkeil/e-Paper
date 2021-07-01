@@ -113,7 +113,7 @@ try:
 
     #Time
     draw_black.text((vline+0.5*padding, padding), time_hours, font = font_clock1em, fill = 0)
-    draw_black.text((vline+0.5*padding+fontsize_clock, padding), ":" + time_minutes, font = font_clock0em66, fill = 0)
+    draw_black.text((vline+0.5*padding+fontsize_clock, padding), time_minutes, font = font_clock0em66, fill = 0)
     draw_black.text((vline+0.5*padding+fontsize_clock, padding+fontsize_clock0em66-5), "Uhr", font = font_clock0em33, fill = 0)
 
     #Date
@@ -122,9 +122,14 @@ try:
     draw_black.line((vline, padding+fontsize_clock, 870, padding+fontsize_clock), fill = 0) #horizontal line
     
     
-    #draw_black.text((100, 40), 'Aktuelle Besucher: '+ str(guest_counter), font = font24, fill = 0)
+    #Draw
     epd.display(epd.getbuffer(black), epd.getbuffer(red))
-    #time.sleep(5)
+    time.sleep(5)
+    epd.Clear()
+    time.sleep(5)
+    epd.display(epd.getbuffer(black), epd.getbuffer(red))
+    time.sleep(5)
+    epd.init()
 
     #logging.info("Clear...")
     #epd.init()
