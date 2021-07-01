@@ -81,7 +81,8 @@ try:
 
     fontsize_clock = 100
     fontsize_clock0em66 = int(fontsize_clock*0.66)
-    fontsize_clock0em33 = int(fontsize_clock*0.33-10)
+    fontsize_clock0em50 = int(fontsize_clock*0.50)
+    fontsize_clock0em33 = int(fontsize_clock*0.33)
 
     font0em33 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), fontsize0em33)
     font0em66 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize0em66)
@@ -89,7 +90,8 @@ try:
 
     font_clock1em = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize_clock)
     font_clock0em66 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize_clock0em66)
-    font_clock0em33 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), int(fontsize_clock*0.33))
+    font_clock0em50 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize_clock0em50)
+    font_clock0em33 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), fontsize_clock0em33)
 
 
     # Drawing on the Vertical image (resolution: 880x528)
@@ -112,12 +114,12 @@ try:
     #Time
     draw_black.text((vline +padding, padding), time_hours, font = font_clock1em, fill = 0)
     draw_black.text((vline +padding+fontsize_clock, padding), ":" + time_minutes, font = font_clock0em66, fill = 0)
-    draw_black.text((vline +padding+fontsize_clock, padding+fontsize_clock0em66-30), "Uhr", font = font_clock0em33, fill = 0)
+    draw_black.text((vline +padding+fontsize_clock, padding+fontsize_clock0em66-5), "Uhr", font = font_clock0em33, fill = 0)
 
     #Date
-    draw_black.text((vline +padding+fontsize_clock+fontsize_clock0em66, padding), time_date, font = font_clock0em66, fill = 0)
-    draw_black.text((vline +padding+fontsize_clock+fontsize_clock0em66, padding+fontsize_clock0em66), time_year, font = font_clock0em33, fill = 0)
-    draw_black.line((vline, padding+fontsize_clock+padding, 880-padding, padding+fontsize_clock+padding), fill = 0) #horizontal line
+    draw_black.text((vline+padding+fontsize_clock+fontsize_clock0em66, padding), time_date, font = font_clock0em50, fill = 0)
+    draw_black.text((vline+padding+fontsize_clock+fontsize_clock0em66, padding+fontsize_clock0em50), time_year, font = font_clock0em50, fill = 0)
+    draw_black.line((vline, padding+fontsize_clock+padding, 880-padding, padding+fontsize_clock), fill = 0) #horizontal line
     
     
     #draw_black.text((100, 40), 'Aktuelle Besucher: '+ str(guest_counter), font = font24, fill = 0)
