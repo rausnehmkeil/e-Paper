@@ -22,8 +22,10 @@ logging.basicConfig(level=logging.DEBUG)
 def formatTemperature(temp):
     split_temp = str(temp).split(".") #split float into integer and fraction part
     temp_int = int(split_temp[0].zfill(2)) #zero padding
-    if(split_temp[1] <=2 ): temp_frac=0 #round fraction part to 5 or 0
-    elif(split_temp[1] >2 and  split_temp[1]<=7): temp_frac=5
+    if(split_temp[1] <=2 ): 
+        temp_frac=0 #round fraction part to 5 or 0
+    elif(split_temp[1] >2 and  split_temp[1]<=7): 
+        temp_frac=5
     else :
         temp_frac=0
         temp_int += 1    
@@ -41,7 +43,7 @@ try:
     temperature_air_int, temperature_air_frac = formatTemperature(temperature_air)
     
     time_now = date.today()
-    logging.debug("Today's date:", time_now)
+    logging.debug("Today's date:", time_now.strftime("%d/%m/%Y"))
 
     logging.debug(data)
     logging.debug("Wassertemperatur: " + str(temperature_water_int) + "." + str(temperature_water_frac))
