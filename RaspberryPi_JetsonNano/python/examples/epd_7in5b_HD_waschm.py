@@ -43,9 +43,9 @@ try:
     temperature_air_int, temperature_air_frac = formatTemperature(temperature_air)
     
     now = datetime.now()
-    date_string = now.strftime("%d.%m.%Y ")
-    time_string = now.strftime("%H:%M:%S")
-    logging.debug("Today's date:" + date_string + time_string)
+    time_hours = now.strftime("%H")
+    time_minutes = now.strftime("%M")
+    logging.debug("Today's date:" + time_hours + ":" + time_minutes)
 
     logging.debug(data)
     logging.debug("Wassertemperatur: " + str(temperature_water_int) + "." + str(temperature_water_frac))
@@ -76,14 +76,18 @@ try:
     fontsize = 264
     fontsize0em66 = int(fontsize*0.66)
     fontsize0em33 = int(fontsize*0.33-10)
+    
     fontsize_clock = 100
+    fontsize_clock0em66 = int(fontsize_clock*0.66)
+    fontsize_clock0em33 = int(fontsize_clock*0.33-10)
 
     font0em33 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), fontsize0em33)
     font0em66 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize0em66)
     font1em = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize)
 
     font_clock1em = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize_clock)
-    font_clock_small = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), 33)
+    font_clock0em66 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize_clock0em66)
+    font_clock0em33 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), int(fontsize_clock*0.33))
 
 
     # Drawing on the Vertical image (resolution: 880x528)
@@ -104,8 +108,9 @@ try:
     draw_black.line((vline, 10, vline, 518), fill = 0) #vertical Line
 
     #Date and Time
-    draw_black.text((vline +padding, padding), time_string, font = font_clock1em, fill = 0)
-    draw_black.text((vline +padding, padding+fontsize0em66), date_string, font = font_clock_small, fill = 0)
+    draw_black.text((vline +padding, padding), time_hours, font = font_clock1em, fill = 0)
+    draw_black.text((vline +padding+fontsize_clock, padding), time_minutes, font = font_clock0em66, fill = 0)
+    draw_black.text((vline +padding+fontsize_clock, padding+fontsize_clock0em66), "Uhr", font = font_clock0em33, fill = 0)
 
     #draw_black.text((100, 40), 'Aktuelle Besucher: '+ str(guest_counter), font = font24, fill = 0)
     epd.display(epd.getbuffer(black), epd.getbuffer(red))
