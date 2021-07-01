@@ -75,7 +75,7 @@ def getData():
         "temperature_water_int" : temperature_water_int,
         "temperature_water_frac" : temperature_water_frac,
         "temperature_air_int" : temperature_air_int,
-        "temperature_air_frac" : temperature_air_int,
+        "temperature_air_frac" : temperature_air_frac,
         "time_hours" : time_hours,
         "time_minutes" : time_minutes,
         "time_year" : time_year,
