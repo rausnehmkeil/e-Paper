@@ -72,13 +72,19 @@ try:
 
     padding = 40
     vmiddle = 264
+    vline = 530
     fontsize = 264
     fontsize0em66 = int(fontsize*0.66)
     fontsize0em33 = int(fontsize*0.33-10)
+    fontsize_clock = 100
 
     font0em33 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), fontsize0em33)
     font0em66 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize0em66)
     font1em = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize)
+
+    font_clock1em = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize_clock)
+    font_clock_small = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), 33)
+
 
     # Drawing on the Vertical image (resolution: 880x528)
     logging.info("1.Drawing on the Horizontal image...")
@@ -91,15 +97,15 @@ try:
     draw_black.text((padding, padding), str(temperature_air_int), font = font1em, fill = 0)
     draw_black.text((290, padding), "." + str(temperature_air_frac) + u"°C", font = font0em66, fill = 0)
     draw_black.text((290, padding+fontsize0em66-30), "Luft", font = font0em33, fill = 0)
-    draw_black.line((10, vmiddle, 530, vmiddle), fill = 0) # horizontal line
+    draw_black.line((10, vmiddle, vline, vmiddle), fill = 0) # horizontal line
     draw_black.text((padding, vmiddle+padding), str(temperature_water_int), font = font1em, fill = 0)
     draw_black.text((290, vmiddle+padding), "." + str(temperature_water_frac) + u"°C", font = font0em66, fill = 0)
     draw_black.text((290, vmiddle+padding+fontsize0em66-30), "Wasser", font = font0em33, fill = 0)
-    draw_black.line((530, 10, 530, 518), fill = 0) #vertical Line
+    draw_black.line((vline, 10, vline, 518), fill = 0) #vertical Line
 
     #Date and Time
-    draw_black.text((530 +padding, padding), date_string, font = font0em66, fill = 0)
-    draw_black.text((530 +padding, padding+fontsize0em66), date_string, font = font0em66, fill = 0)
+    draw_black.text((vline +padding, padding), time_string, font = font_clock1em, fill = 0)
+    draw_black.text((vline +padding, padding+fontsize0em66), date_string, font = font_clock_small, fill = 0)
 
     #draw_black.text((100, 40), 'Aktuelle Besucher: '+ str(guest_counter), font = font24, fill = 0)
     epd.display(epd.getbuffer(black), epd.getbuffer(red))
