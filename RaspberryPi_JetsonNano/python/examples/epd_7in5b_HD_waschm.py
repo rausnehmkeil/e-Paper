@@ -45,6 +45,8 @@ try:
     now = datetime.now()
     time_hours = now.strftime("%H")
     time_minutes = now.strftime("%M")
+    time_year = now.strftime("%y")
+    time_date = now.strftime("%d.%m.")
     logging.debug("Today's date:" + time_hours + ":" + time_minutes)
 
     logging.debug(data)
@@ -76,7 +78,7 @@ try:
     fontsize = 264
     fontsize0em66 = int(fontsize*0.66)
     fontsize0em33 = int(fontsize*0.33-10)
-    
+
     fontsize_clock = 100
     fontsize_clock0em66 = int(fontsize_clock*0.66)
     fontsize_clock0em33 = int(fontsize_clock*0.33-10)
@@ -107,10 +109,14 @@ try:
     draw_black.text((290, vmiddle+padding+fontsize0em66-30), "Wasser", font = font0em33, fill = 0)
     draw_black.line((vline, 10, vline, 518), fill = 0) #vertical Line
 
-    #Date and Time
+    #Time
     draw_black.text((vline +padding, padding), time_hours, font = font_clock1em, fill = 0)
     draw_black.text((vline +padding+fontsize_clock, padding), time_minutes, font = font_clock0em66, fill = 0)
     draw_black.text((vline +padding+fontsize_clock, padding+fontsize_clock0em66), "Uhr", font = font_clock0em33, fill = 0)
+
+    #Date
+    draw_black.text((vline +padding+fontsize_clock+font_clock0em66, padding), time_date, font = font_clock0em33, fill = 0)
+    draw_black.text((vline +padding+fontsize_clock+font_clock0em66, padding+fontsize_clock0em33), time_year, font = font_clock0em33, fill = 0)
 
     #draw_black.text((100, 40), 'Aktuelle Besucher: '+ str(guest_counter), font = font24, fill = 0)
     epd.display(epd.getbuffer(black), epd.getbuffer(red))
