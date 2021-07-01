@@ -15,7 +15,7 @@ from PIL import Image,ImageDraw,ImageFont
 import traceback
 
 import urllib, json
-from datetime import date
+from datetime import datetime
 
 logging.basicConfig(level=logging.DEBUG)
 
