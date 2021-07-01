@@ -56,6 +56,7 @@ def formatTemperature(temp):
 
 
 def getData():
+    logging.info("Retrieving Data...")
     temperature_url = 'https://www.kaiserslautern.de/export/baeder/waschmuehle_temperature.json'
     response = urllib.urlopen(temperature_url)
     data = json.loads(response.read())
@@ -81,7 +82,7 @@ def getData():
         "time_year" : time_year,
         "time_date" : time_date,
     }
-
+    logging.debug("Recieved Data: " + str(result))
     return result
 
 def initBuffer():
@@ -94,6 +95,7 @@ def initBuffer():
 
 
 def fillBuffer(data, black, red):
+    logging.info("Fill Image Buffer...")
     draw_black = ImageDraw.Draw(black)
     #draw_red = ImageDraw.Draw(red)
     #Temperatures
@@ -124,7 +126,7 @@ try:
     epd = epd7in5b_HD.EPD()
 
     while True:
-        logging.info("init and Clear")
+        logging.info("Init and Clear")
         epd.init()
         epd.Clear() 
         result = getData()
