@@ -71,34 +71,45 @@ def getData():
     time_year = now.strftime("%Y")
     time_date = now.strftime("%d.%m.")
 
-    return 0
+    result = {
+        "temperature_water_int" : temperature_water_int,
+        "temperature_water_frac" : temperature_water_frac,
+        "temperature_air_int" : temperature_air_int,
+        "temperature_air_frac" : temperature_air_int,
+        "time_hours" : time_hours,
+        "time_minutes" : time_minutes,
+        "time_year" : time_year,
+        "time_date" : time_date,
+    }
 
-def fillBuffer():
+    return result
+
+def fillBuffer(data):
     # Drawing on the Vertical image (resolution: 880x528)
     logging.info("1.Drawing on the Horizontal image...")
     black = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
-    red = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
+    #red = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
     draw_black = ImageDraw.Draw(black)
-    draw_red = ImageDraw.Draw(red)
+    #draw_red = ImageDraw.Draw(red)
 
     #Temperatures
-    draw_black.text((padding, padding), str(temperature_air_int), font = font1em, fill = 0)
-    draw_black.text((290, padding), "." + str(temperature_air_frac) + u"°C", font = font0em66, fill = 0)
+    draw_black.text((padding, padding), str(data["temperature_air_int"]), font = font1em, fill = 0)
+    draw_black.text((290, padding), "." + str(data["temperature_air_frac"]) + u"°C", font = font0em66, fill = 0)
     draw_black.text((290, padding+fontsize0em66-30), "Luft", font = font0em33, fill = 0)
     draw_black.line((10, vmiddle, vline, vmiddle), fill = 0) # horizontal line
-    draw_black.text((padding, vmiddle+padding), str(temperature_water_int), font = font1em, fill = 0)
-    draw_black.text((290, vmiddle+padding), "." + str(temperature_water_frac) + u"°C", font = font0em66, fill = 0)
+    draw_black.text((padding, vmiddle+padding), str(data["temperature_water_int"]), font = font1em, fill = 0)
+    draw_black.text((290, vmiddle+padding), "." + str(data["temperature_water_frac"]) + u"°C", font = font0em66, fill = 0)
     draw_black.text((290, vmiddle+padding+fontsize0em66-30), "Wasser", font = font0em33, fill = 0)
     draw_black.line((vline, 10, vline, 518), fill = 0) #vertical Line
 
     #Time
-    draw_black.text((vline+0.5*padding, padding), time_hours, font = font_clock1em, fill = 0)
-    draw_black.text((vline+0.5*padding+fontsize_clock, padding), time_minutes, font = font_clock0em66, fill = 0)
+    draw_black.text((vline+0.5*padding, padding), data["time_hours"], font = font_clock1em, fill = 0)
+    draw_black.text((vline+0.5*padding+fontsize_clock, padding), data["time_minutes"], font = font_clock0em66, fill = 0)
     draw_black.text((vline+0.5*padding+fontsize_clock, padding+fontsize_clock0em66-5), "Uhr", font = font_clock0em33, fill = 0)
 
     #Date
-    draw_black.text((vline+0.5*padding+fontsize_clock+fontsize_clock0em66+padding, padding), time_date, font = font_clock0em50, fill = 0)
-    draw_black.text((vline+0.5*padding+fontsize_clock+fontsize_clock0em66+padding, padding+fontsize_clock0em50), time_year, font = font_clock0em50, fill = 0)
+    draw_black.text((vline+0.5*padding+fontsize_clock+fontsize_clock0em66+padding, padding), data["time_date"], font = font_clock0em50, fill = 0)
+    draw_black.text((vline+0.5*padding+fontsize_clock+fontsize_clock0em66+padding, padding+fontsize_clock0em50), data["time_year"], font = font_clock0em50, fill = 0)
     draw_black.line((vline, padding+fontsize_clock, 870, padding+fontsize_clock), fill = 0) #horizontal line
 
     return 0
@@ -112,8 +123,8 @@ try:
         logging.info("init and Clear")
         epd.init()
         epd.Clear() 
-        getData()
-        fillBuffer()
+        result = getData()
+        fillBuffer(result)
         epd.display(epd.getbuffer(black), epd.getbuffer(red))
         time.sleep(5)
 
