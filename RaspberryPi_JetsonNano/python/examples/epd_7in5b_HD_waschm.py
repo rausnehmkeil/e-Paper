@@ -117,9 +117,9 @@ try:
     draw_black.text((vline +padding+fontsize_clock, padding+fontsize_clock0em66-5), "Uhr", font = font_clock0em33, fill = 0)
 
     #Date
-    draw_black.text((vline+padding+fontsize_clock+fontsize_clock0em66, padding), time_date, font = font_clock0em50, fill = 0)
-    draw_black.text((vline+padding+fontsize_clock+fontsize_clock0em66, padding+fontsize_clock0em50), time_year, font = font_clock0em50, fill = 0)
-    draw_black.line((vline, padding+fontsize_clock+padding, 880-padding, padding+fontsize_clock), fill = 0) #horizontal line
+    draw_black.text((vline+padding+fontsize_clock+fontsize_clock0em66+padding, padding), time_date, font = font_clock0em50, fill = 0)
+    draw_black.text((vline+padding+fontsize_clock+fontsize_clock0em66+padding, padding+fontsize_clock0em50), time_year, font = font_clock0em50, fill = 0)
+    draw_black.line((vline, padding+fontsize_clock, 880-padding, padding+fontsize_clock), fill = 0) #horizontal line
     
     
     #draw_black.text((100, 40), 'Aktuelle Besucher: '+ str(guest_counter), font = font24, fill = 0)
