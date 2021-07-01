@@ -43,7 +43,8 @@ try:
     temperature_air_int, temperature_air_frac = formatTemperature(temperature_air)
     
     time_now = date.today()
-    logging.debug("Today's date:", time_now.strftime("%d/%m/%Y"))
+    now = time_now.strftime("%d/%m/%Y")
+    logging.debug("Today's date:" + now)
 
     logging.debug(data)
     logging.debug("Wassertemperatur: " + str(temperature_water_int) + "." + str(temperature_water_frac))
