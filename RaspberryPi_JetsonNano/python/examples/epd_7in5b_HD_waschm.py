@@ -83,11 +83,11 @@ try:
     draw_black.text((padding, padding), str(temperature_air_int), font = font1em, fill = 0)
     draw_black.text((290, padding), "." + str(temperature_air_frac) + u"°C", font = font0em66, fill = 0)
     draw_black.text((290, padding+fontsize0em66-30), "Luft", font = font0em33, fill = 0)
-    draw_black.line((10, vmiddle, 870, vmiddle), fill = 0)
+    draw_black.line((10, vmiddle, 500, vmiddle), fill = 0) # horizontal line
     draw_black.text((padding, vmiddle+padding), str(temperature_water_int), font = font1em, fill = 0)
     draw_black.text((290, vmiddle+padding), "." + str(temperature_water_frac) + u"°C", font = font0em66, fill = 0)
     draw_black.text((290, vmiddle+padding+fontsize0em66-30), "Wasser", font = font0em33, fill = 0)
-    draw_black.line((587, 10, 587, 518), fill = 0)
+    draw_black.line((500, 10, 500, 518), fill = 0) #vertical Line
 
     #draw_black.text((100, 40), 'Aktuelle Besucher: '+ str(guest_counter), font = font24, fill = 0)
     epd.display(epd.getbuffer(black), epd.getbuffer(red))
