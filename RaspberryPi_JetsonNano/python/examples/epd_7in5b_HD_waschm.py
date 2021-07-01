@@ -42,9 +42,10 @@ try:
     temperature_air = float(data['data']['temperature'])
     temperature_air_int, temperature_air_frac = formatTemperature(temperature_air)
     
-    time_now = date.today()
-    now = time_now.strftime("%d/%m/%Y")
-    logging.debug("Today's date:" + now)
+    now = datetime.now()
+    date_string = now.strftime("%d.%m.%Y ")
+    time_string = now.strftime("%H:%M:%S")
+    logging.debug("Today's date:" + date_string + time_string)
 
     logging.debug(data)
     logging.debug("Wassertemperatur: " + str(temperature_water_int) + "." + str(temperature_water_frac))
@@ -85,6 +86,8 @@ try:
     red = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
     draw_black = ImageDraw.Draw(black)
     draw_red = ImageDraw.Draw(red)
+
+    #Temperatures
     draw_black.text((padding, padding), str(temperature_air_int), font = font1em, fill = 0)
     draw_black.text((290, padding), "." + str(temperature_air_frac) + u"°C", font = font0em66, fill = 0)
     draw_black.text((290, padding+fontsize0em66-30), "Luft", font = font0em33, fill = 0)
@@ -93,6 +96,10 @@ try:
     draw_black.text((290, vmiddle+padding), "." + str(temperature_water_frac) + u"°C", font = font0em66, fill = 0)
     draw_black.text((290, vmiddle+padding+fontsize0em66-30), "Wasser", font = font0em33, fill = 0)
     draw_black.line((530, 10, 530, 518), fill = 0) #vertical Line
+
+    #Date and Time
+    draw_black.text((530 +padding, padding), date_string, font = font0em66, fill = 0)
+    draw_black.text((530 +padding, padding+fontsize0em66), date_string, font = font0em66, fill = 0)
 
     #draw_black.text((100, 40), 'Aktuelle Besucher: '+ str(guest_counter), font = font24, fill = 0)
     epd.display(epd.getbuffer(black), epd.getbuffer(red))
