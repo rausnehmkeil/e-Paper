@@ -46,10 +46,11 @@ font_clock0em33 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), fonts
 
 def splitFloat(float_in):
     split = str(float_in).split(".") #split float into integer and fraction part
-    out_int = split[0]
-    if(split[1] <=2 ): 
+    out_int = int(split[0])
+    out_frac = int(split[1])
+    if(out_frac <=2 ): 
         out_frac=0 #round fraction part to 5 or 0
-    elif(split[1] >2 and  split[1]<=7): 
+    elif(out_frac >2 and  out_frac<=7): 
         out_frac=5
     else :
         out_frac=0
