@@ -20,8 +20,10 @@ from datetime import datetime
 logging.basicConfig(level=logging.DEBUG)
 
 
+height = 528
+width = 880
 padding = 40
-vmiddle = 264
+vmiddle = height/2
 vline = 530
 fontsize = 264
 fontsize0em66 = int(fontsize*0.66)
@@ -61,11 +63,12 @@ def getData(): #ToDo: Exeption handling, if ressource is unavailable or data is 
     temperature_url = 'https://www.kaiserslautern.de/export/baeder/waschmuehle_temperature.json'
     response = urllib.urlopen(temperature_url)
     data = json.loads(response.read())
+
     temperature_water = float(data['data']['external_temperature_1'])
     temperature_water_int, temperature_water_frac = formatTemperature(temperature_water)
-
     temperature_air = float(data['data']['temperature'])
     temperature_air_int, temperature_air_frac = formatTemperature(temperature_air)
+    humidity = float(data['data']['humidity'])
     
     #date and time
     now = datetime.now()
@@ -86,6 +89,7 @@ def getData(): #ToDo: Exeption handling, if ressource is unavailable or data is 
         "temperature_water_frac" : temperature_water_frac,
         "temperature_air_int" : temperature_air_int,
         "temperature_air_frac" : temperature_air_frac,
+        "humidity" : humidity,
         "time_hours" : time_hours,
         "time_minutes" : time_minutes,
         "time_year" : time_year,
@@ -112,28 +116,30 @@ def fillBuffer(data, black, red):
     draw_black.text((padding, padding), str(data["temperature_air_int"]), font = font1em, fill = 0)
     draw_black.text((290, padding), "." + str(data["temperature_air_frac"]) + u"°C", font = font0em66, fill = 0)
     draw_black.text((290, padding+fontsize0em66-30), "Luft", font = font0em33, fill = 0)
-    draw_black.line((10, vmiddle, vline, vmiddle), fill = 0) # horizontal line
+    draw_black.line((0, vmiddle, vline, vmiddle), fill = 0) # horizontal line
     draw_black.text((padding, vmiddle+padding), str(data["temperature_water_int"]), font = font1em, fill = 0)
     draw_black.text((290, vmiddle+padding), "." + str(data["temperature_water_frac"]) + u"°C", font = font0em66, fill = 0)
     draw_black.text((290, vmiddle+padding+fontsize0em66-30), "Wasser", font = font0em33, fill = 0)
-    draw_black.line((vline, 10, vline, 518), fill = 0) #vertical Line
+    draw_black.line((vline, 0, vline, height), fill = 0) #vertical Line
 
     #Time
-    draw_black.text((vline+0.5*padding, padding), data["time_hours"], font = font_clock1em, fill = 0)
-    draw_black.text((vline+0.5*padding+fontsize_clock, padding), data["time_minutes"], font = font_clock0em66, fill = 0)
-    draw_black.text((vline+0.5*padding+fontsize_clock, padding+fontsize_clock0em66-5), "Uhr", font = font_clock0em33, fill = 0)
+    #draw_black.text((vline+0.5*padding, padding), data["time_hours"], font = font_clock1em, fill = 0)
+    #draw_black.text((vline+0.5*padding+fontsize_clock, padding), data["time_minutes"], font = font_clock0em66, fill = 0)
+    #draw_black.text((vline+0.5*padding+fontsize_clock, padding+fontsize_clock0em66-5), "Uhr", font = font_clock0em33, fill = 0)
 
     #Date
-    draw_black.text((vline+0.5*padding+fontsize_clock+fontsize_clock0em66+padding, padding), data["time_date"], font = font_clock0em50, fill = 0)
-    draw_black.text((vline+0.5*padding+fontsize_clock+fontsize_clock0em66+padding, padding+fontsize_clock0em50), data["time_year"], font = font_clock0em50, fill = 0)
-    draw_black.line((vline, padding+fontsize_clock, 870, padding+fontsize_clock), fill = 0) #horizontal line
+    draw_black.text((vline+0.5*padding, padding), data["time_date"] + data["time_year"], font = font_clock1em, fill = 0)
+    draw_black.line((vline, 1*height/4, width, 1*height/4), fill = 0) #horizontal line
 
     #Weather
-    draw_black.text((vline+0.5*padding, 2*padding+fontsize_clock), str(data["precipitation"]) + "%", font = font_clock1em, fill = 0)
-    draw_black.text((vline+0.5*padding+fontsize_clock+fontsize_clock0em50, 2*padding-30+fontsize_clock), "Regen- " , font = font_clock0em33, fill = 0)
-    draw_black.text((vline+0.5*padding+fontsize_clock+fontsize_clock0em50, 2*padding-30+fontsize_clock+fontsize_clock0em33), "wahrschein- " , font = font_clock0em33, fill = 0)
-    draw_black.text((vline+0.5*padding+fontsize_clock+fontsize_clock0em50, 2*padding-30+fontsize_clock+2*fontsize_clock0em33), "lichkeit" , font = font_clock0em33, fill = 0)
-    draw_black.line((vline, 2*padding+2*fontsize_clock, 870, 2*padding+2*fontsize_clock), fill = 0) #horizontal line
+    draw_black.text((vline+0.5*padding, 1*height/4+padding), str(data["precipitation"]) + "%", font = font_clock1em, fill = 0)
+    draw_black.text((vline+0.5*padding+fontsize_clock+fontsize_clock0em50, 1*height/4), "Regen- " , font = font_clock0em33, fill = 0)
+    draw_black.text((vline+0.5*padding+fontsize_clock+fontsize_clock0em50, 1*height/4+fontsize_clock0em33), "wahrschein- " , font = font_clock0em33, fill = 0)
+    draw_black.text((vline+0.5*padding+fontsize_clock+fontsize_clock0em50, 1*height/4+2*fontsize_clock0em33), "lichkeit" , font = font_clock0em33, fill = 0)
+    draw_black.line((vline, 2*height/4, width, 2*height/4), fill = 0) #horizontal line
+
+    draw_black.line((vline, 3*height/4, width, 3*height/4), fill = 0) #horizontal line
+    draw_black.text((vline+0.5*padding, 3*height/4+padding), str(data["humidity"]) + "%", font = font_clock1em, fill = 0)
 
     return 0
 
