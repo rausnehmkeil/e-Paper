@@ -55,8 +55,9 @@ def formatTemperature(temp):
     return temp_int, temp_frac
 
 
-def getData():
+def getData(): #ToDo: Exeption handling, if ressource is unavailable or data is invalid
     logging.info("Retrieving Data...")
+    #Sensordata
     temperature_url = 'https://www.kaiserslautern.de/export/baeder/waschmuehle_temperature.json'
     response = urllib.urlopen(temperature_url)
     data = json.loads(response.read())
@@ -66,11 +67,18 @@ def getData():
     temperature_air = float(data['data']['temperature'])
     temperature_air_int, temperature_air_frac = formatTemperature(temperature_air)
     
+    #date and time
     now = datetime.now()
     time_hours = now.strftime("%H")
     time_minutes = now.strftime("%M")
     time_year = now.strftime("%Y")
     time_date = now.strftime("%d.%m.")
+
+    #weather 
+    temperature_url = 'https://www.kaiserslautern.de/export/wetter/dwd_wetter_morlautern.json'
+    response = urllib.urlopen(temperature_url)
+    data = json.loads(response.read())
+    precipitation = float(data['data']['precipitation_perc'])
 
     result = {
         "temperature_water_int" : temperature_water_int,
@@ -81,6 +89,7 @@ def getData():
         "time_minutes" : time_minutes,
         "time_year" : time_year,
         "time_date" : time_date,
+        "precipitation" : precipitation
     }
     logging.debug("Recieved Data: " + str(result))
     return result
@@ -117,6 +126,9 @@ def fillBuffer(data, black, red):
     draw_black.text((vline+0.5*padding+fontsize_clock+fontsize_clock0em66+padding, padding), data["time_date"], font = font_clock0em50, fill = 0)
     draw_black.text((vline+0.5*padding+fontsize_clock+fontsize_clock0em66+padding, padding+fontsize_clock0em50), data["time_year"], font = font_clock0em50, fill = 0)
     draw_black.line((vline, padding+fontsize_clock, 870, padding+fontsize_clock), fill = 0) #horizontal line
+
+    #Weather
+    draw_black.text((vline+0.5*padding, 2*padding+fontsize_clock), "Regenwahrscheinlichkeit: " + data["precipitation"], font = font_clock0em33, fill = 0)
 
     return 0
 
