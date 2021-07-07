@@ -130,9 +130,10 @@ def fillBuffer(data, black, red):
 
     #Weather
     draw_black.text((vline+0.5*padding, 2*padding+fontsize_clock), str(data["precipitation"]) + "%", font = font_clock1em, fill = 0)
-    draw_black.text((vline+0.5*padding+fontsize_clock+fontsize_clock0em50, 2*padding+2*fontsize_clock), "Regen" , font = font_clock0em33, fill = 0)
-    draw_black.text((vline+0.5*padding+fontsize_clock+fontsize_clock0em50, 2*padding+2*fontsize_clock+fontsize_clock0em33), "wahrscheinlichkeit" , font = font_clock0em33, fill = 0)
-
+    draw_black.text((vline+0.5*padding+fontsize_clock+fontsize_clock0em50, 2*padding+fontsize_clock), "Regen-" , font = font_clock0em33, fill = 0)
+    draw_black.text((vline+0.5*padding+fontsize_clock+fontsize_clock0em50, 2*padding+fontsize_clock+fontsize_clock0em33), "wahrschein-" , font = font_clock0em33, fill = 0)
+    draw_black.text((vline+0.5*padding+fontsize_clock+fontsize_clock0em50, 2*padding+fontsize_clock+2*fontsize_clock0em33), "lichkeit" , font = font_clock0em33, fill = 0)
+    draw_black.line((vline, 3*padding+fontsize_clock, 870, 3*padding+fontsize_clock), fill = 0) #horizontal line
 
     return 0
 
