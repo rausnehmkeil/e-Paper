@@ -44,8 +44,8 @@ font_clock0em50 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), 
 font_clock0em33 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), fontsize_clock0em33)
 
 
-def splitFloat(in):
-    split = str(in).split(".") #split float into integer and fraction part
+def splitFloat(float_in):
+    split = str(float_in).split(".") #split float into integer and fraction part
     out_int = int(split[0].zfill(2)) #zero padding
     if(split[1] <=2 ): 
         out_frac=0 #round fraction part to 5 or 0
