@@ -46,7 +46,7 @@ font_clock0em33 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), fonts
 
 def splitFloat(float_in):
     split = str(float_in).split(".") #split float into integer and fraction part
-    out_int = int(split[0].zfill(2)) #zero padding
+    out_int = split[0]
     if(split[1] <=2 ): 
         out_frac=0 #round fraction part to 5 or 0
     elif(split[1] >2 and  split[1]<=7): 
@@ -119,11 +119,11 @@ def fillBuffer(data, black, red):
     draw_black = ImageDraw.Draw(black)
     #draw_red = ImageDraw.Draw(red)
     #Temperatures
-    draw_black.text((padding, padding), str(data["temperature_air_int"]), font = font1em, fill = 0)
+    draw_black.text((padding, padding), str(data["temperature_air_int"].zfill(2)), font = font1em, fill = 0)
     draw_black.text((290, padding), "." + str(data["temperature_air_frac"]) + u"°C", font = font0em66, fill = 0)
     draw_black.text((290, padding+fontsize0em66-30), "Luft", font = font0em33, fill = 0)
     draw_black.line((0, vmiddle, vline, vmiddle), fill = 0) # horizontal line
-    draw_black.text((padding, vmiddle+padding), str(data["temperature_water_int"]), font = font1em, fill = 0)
+    draw_black.text((padding, vmiddle+padding), str(data["temperature_water_int"].zfill(2)), font = font1em, fill = 0)
     draw_black.text((290, vmiddle+padding), "." + str(data["temperature_water_frac"]) + u"°C", font = font0em66, fill = 0)
     draw_black.text((290, vmiddle+padding+fontsize0em66-30), "Wasser", font = font0em33, fill = 0)
     draw_black.line((vline, 0, vline, height), fill = 0) #vertical Line
@@ -138,13 +138,13 @@ def fillBuffer(data, black, red):
     draw_black.line((vline, 1*height/4, width, 1*height/4), fill = 0) #horizontal line
 
     #Weather
-    draw_black.text((vline+0.5*padding, 1*height/4+padding), str(data["precipitation_int"]) + "." + str(data["precipitation_frac"]) + "%", font = font_clock1em, fill = 0)
+    draw_black.text((vline+0.5*padding, 1*height/4+padding), str(data["precipitation_int"].zfill(2)) + "." + str(data["precipitation_frac"]) + "%", font = font_clock1em, fill = 0)
     draw_black.text((vline+0.5*padding+2*fontsize_clock, 1*height/4+padding), "Regen- " , font = font_clock0em33, fill = 0)
     draw_black.text((vline+0.5*padding+2*fontsize_clock, 1*height/4+padding+fontsize_clock0em33), "wahrschein- " , font = font_clock0em33, fill = 0)
     draw_black.text((vline+0.5*padding+2*fontsize_clock, 1*height/4+padding+2*fontsize_clock0em33), "lichkeit" , font = font_clock0em33, fill = 0)
     
     draw_black.line((vline, 2*height/4, width, 2*height/4), fill = 0) #horizontal line
-    draw_black.text((vline+0.5*padding, 2*height/4+padding), str(data["humidity_int"]) + "." + str(data["humidity_frac"]) + "%", font = font_clock1em, fill = 0)
+    draw_black.text((vline+0.5*padding, 2*height/4+padding), str(data["humidity_int"].zfill(2)) + "." + str(data["humidity_frac"]) + "%", font = font_clock1em, fill = 0)
     draw_black.text((vline+0.5*padding+2*fontsize_clock, 2*height/4+padding), "Luft- " , font = font_clock0em33, fill = 0)
     draw_black.text((vline+0.5*padding+2*fontsize_clock, 2*height/4+padding+fontsize_clock0em33), "feuchtig- " , font = font_clock0em33, fill = 0)
     draw_black.text((vline+0.5*padding+2*fontsize_clock, 2*height/4+padding+2*fontsize_clock0em33), "keit" , font = font_clock0em33, fill = 0)
