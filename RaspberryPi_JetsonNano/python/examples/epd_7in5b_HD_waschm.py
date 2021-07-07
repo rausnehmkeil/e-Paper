@@ -44,17 +44,17 @@ font_clock0em50 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), 
 font_clock0em33 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), fontsize_clock0em33)
 
 
-def formatTemperature(temp):
-    split_temp = str(temp).split(".") #split float into integer and fraction part
-    temp_int = int(split_temp[0].zfill(2)) #zero padding
-    if(split_temp[1] <=2 ): 
-        temp_frac=0 #round fraction part to 5 or 0
-    elif(split_temp[1] >2 and  split_temp[1]<=7): 
-        temp_frac=5
+def splitFloat(in):
+    split = str(in).split(".") #split float into integer and fraction part
+    out_int = int(split[0].zfill(2)) #zero padding
+    if(split[1] <=2 ): 
+        out_frac=0 #round fraction part to 5 or 0
+    elif(split[1] >2 and  split[1]<=7): 
+        out_frac=5
     else :
-        temp_frac=0
-        temp_int += 1    
-    return temp_int, temp_frac
+        out_frac=0
+        out_int += 1    
+    return out_int, out_frac
 
 
 def getData(): #ToDo: Exeption handling, if ressource is unavailable or data is invalid
@@ -65,16 +65,17 @@ def getData(): #ToDo: Exeption handling, if ressource is unavailable or data is 
     data = json.loads(response.read())
 
     temperature_water = float(data['data']['external_temperature_1'])
-    temperature_water_int, temperature_water_frac = formatTemperature(temperature_water)
+    temperature_water_int, temperature_water_frac = splitFloat(temperature_water)
     temperature_air = float(data['data']['temperature'])
-    temperature_air_int, temperature_air_frac = formatTemperature(temperature_air)
+    temperature_air_int, temperature_air_frac = splitFloat(temperature_air)
     humidity = float(data['data']['humidity'])
+    humidity_int, humidity_frac = splitFloat(humidity)
     
     #date and time
     now = datetime.now()
     time_hours = now.strftime("%H")
     time_minutes = now.strftime("%M")
-    time_year = now.strftime("%Y")
+    time_year = now.strftime("%y")
     time_date = now.strftime("%d.%m.")
 
     #weather 
@@ -83,6 +84,7 @@ def getData(): #ToDo: Exeption handling, if ressource is unavailable or data is 
     logging.debug(response)
     data = json.loads(response.read())
     precipitation = float(data['precipitation_perc'])
+    precipitation_int, precipitation_frac = splitFloat(precipitation)
 
     result = {
         "temperature_water_int" : temperature_water_int,
@@ -90,11 +92,15 @@ def getData(): #ToDo: Exeption handling, if ressource is unavailable or data is 
         "temperature_air_int" : temperature_air_int,
         "temperature_air_frac" : temperature_air_frac,
         "humidity" : humidity,
+        "humidity_int" : humidity_int,
+        "humidity_frac" : humidity_frac,
         "time_hours" : time_hours,
         "time_minutes" : time_minutes,
         "time_year" : time_year,
         "time_date" : time_date,
-        "precipitation" : precipitation
+        "precipitation" : precipitation,
+        "precipitation_int" : precipitation_int,
+        "precipitation_frac" : precipitation_frac
     }
     logging.debug("Recieved Data: " + str(result))
     return result
@@ -132,14 +138,20 @@ def fillBuffer(data, black, red):
     draw_black.line((vline, 1*height/4, width, 1*height/4), fill = 0) #horizontal line
 
     #Weather
-    draw_black.text((vline+0.5*padding, 1*height/4+padding), str(data["precipitation"]) + "%", font = font_clock1em, fill = 0)
-    draw_black.text((vline+0.5*padding+fontsize_clock+fontsize_clock0em50, 1*height/4), "Regen- " , font = font_clock0em33, fill = 0)
-    draw_black.text((vline+0.5*padding+fontsize_clock+fontsize_clock0em50, 1*height/4+fontsize_clock0em33), "wahrschein- " , font = font_clock0em33, fill = 0)
-    draw_black.text((vline+0.5*padding+fontsize_clock+fontsize_clock0em50, 1*height/4+2*fontsize_clock0em33), "lichkeit" , font = font_clock0em33, fill = 0)
+    draw_black.text((vline+0.5*padding, 1*height/4+padding), str(data["precipitation_int"]) + str(data["precipitation_frac"]) + "%", font = font_clock1em, fill = 0)
+    draw_black.text((vline+0.5*padding+2*fontsize_clock, 1*height/4+padding), "Regen- " , font = font_clock0em33, fill = 0)
+    draw_black.text((vline+0.5*padding+2*fontsize_clock, 1*height/4+padding+fontsize_clock0em33), "wahrschein- " , font = font_clock0em33, fill = 0)
+    draw_black.text((vline+0.5*padding+2*fontsize_clock, 1*height/4+padding+2*fontsize_clock0em33), "lichkeit" , font = font_clock0em33, fill = 0)
+    
     draw_black.line((vline, 2*height/4, width, 2*height/4), fill = 0) #horizontal line
+    draw_black.text((vline+0.5*padding, 2*height/4+padding), str(data["humidity_int"]) + str(data["humidity_frac"]) + "%", font = font_clock1em, fill = 0)
+    draw_black.text((vline+0.5*padding+2*fontsize_clock, 1*height/4+padding), "Luft- " , font = font_clock0em33, fill = 0)
+    draw_black.text((vline+0.5*padding+2*fontsize_clock, 1*height/4+padding+fontsize_clock0em33), "feuchtig- " , font = font_clock0em33, fill = 0)
+    draw_black.text((vline+0.5*padding+2*fontsize_clock, 1*height/4+padding+2*fontsize_clock0em33), "keit" , font = font_clock0em33, fill = 0)
+
 
     draw_black.line((vline, 3*height/4, width, 3*height/4), fill = 0) #horizontal line
-    draw_black.text((vline+0.5*padding, 3*height/4+padding), str(data["humidity"]) + "%", font = font_clock1em, fill = 0)
+    
 
     return 0
 
