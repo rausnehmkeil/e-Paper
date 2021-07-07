@@ -138,16 +138,16 @@ def fillBuffer(data, black, red):
     draw_black.line((vline, 1*height/4, width, 1*height/4), fill = 0) #horizontal line
 
     #Weather
-    draw_black.text((vline+0.5*padding, 1*height/4+padding), str(data["precipitation_int"]) + str(data["precipitation_frac"]) + "%", font = font_clock1em, fill = 0)
+    draw_black.text((vline+0.5*padding, 1*height/4+padding), str(data["precipitation_int"]) + "." + str(data["precipitation_frac"]) + "%", font = font_clock1em, fill = 0)
     draw_black.text((vline+0.5*padding+2*fontsize_clock, 1*height/4+padding), "Regen- " , font = font_clock0em33, fill = 0)
     draw_black.text((vline+0.5*padding+2*fontsize_clock, 1*height/4+padding+fontsize_clock0em33), "wahrschein- " , font = font_clock0em33, fill = 0)
     draw_black.text((vline+0.5*padding+2*fontsize_clock, 1*height/4+padding+2*fontsize_clock0em33), "lichkeit" , font = font_clock0em33, fill = 0)
     
     draw_black.line((vline, 2*height/4, width, 2*height/4), fill = 0) #horizontal line
-    draw_black.text((vline+0.5*padding, 2*height/4+padding), str(data["humidity_int"]) + str(data["humidity_frac"]) + "%", font = font_clock1em, fill = 0)
-    draw_black.text((vline+0.5*padding+2*fontsize_clock, 1*height/4+padding), "Luft- " , font = font_clock0em33, fill = 0)
-    draw_black.text((vline+0.5*padding+2*fontsize_clock, 1*height/4+padding+fontsize_clock0em33), "feuchtig- " , font = font_clock0em33, fill = 0)
-    draw_black.text((vline+0.5*padding+2*fontsize_clock, 1*height/4+padding+2*fontsize_clock0em33), "keit" , font = font_clock0em33, fill = 0)
+    draw_black.text((vline+0.5*padding, 2*height/4+padding), str(data["humidity_int"]) + "." + str(data["humidity_frac"]) + "%", font = font_clock1em, fill = 0)
+    draw_black.text((vline+0.5*padding+2*fontsize_clock, 2*height/4+padding), "Luft- " , font = font_clock0em33, fill = 0)
+    draw_black.text((vline+0.5*padding+2*fontsize_clock, 2*height/4+padding+fontsize_clock0em33), "feuchtig- " , font = font_clock0em33, fill = 0)
+    draw_black.text((vline+0.5*padding+2*fontsize_clock, 2*height/4+padding+2*fontsize_clock0em33), "keit" , font = font_clock0em33, fill = 0)
 
 
     draw_black.line((vline, 3*height/4, width, 3*height/4), fill = 0) #horizontal line
