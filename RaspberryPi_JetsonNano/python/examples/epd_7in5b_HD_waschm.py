@@ -133,7 +133,7 @@ try:
         black, red = initBuffer()
         fillBuffer(result, black, red)
         epd.display(epd.getbuffer(black), epd.getbuffer(red))
-        time.sleep(60)
+        time.sleep(300) #300s=5min
 
         #logging.info("Goto Sleep...")
         #epd.sleep()
