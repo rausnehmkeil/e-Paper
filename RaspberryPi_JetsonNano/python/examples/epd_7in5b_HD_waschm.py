@@ -77,8 +77,9 @@ def getData(): #ToDo: Exeption handling, if ressource is unavailable or data is 
     #weather 
     temperature_url = 'https://www.kaiserslautern.de/export/wetter/dwd_wetter_morlautern.json'
     response = urllib.urlopen(temperature_url)
+    logging.debug(response)
     data = json.loads(response.read())
-    precipitation = float(data['data']['precipitation_perc'])
+    precipitation = float(data['precipitation_perc'])
 
     result = {
         "temperature_water_int" : temperature_water_int,
