@@ -76,7 +76,7 @@ def getData(): #ToDo: Exeption handling, if ressource is unavailable or data is 
         humidity = float(data['data']['humidity'])
         humidity_int, humidity_frac = splitFloat(humidity)
     except ValueError:  # includes simplejson.decoder.JSONDecodeError
-        temperature_air, temperature_air_frac, temperature_air_int, temperature_water, temperature_water_frac, temperature_water_int, humidity, humidity_frac, humidity_int = None
+        temperature_air = temperature_air_frac = temperature_air_int = temperature_water = temperature_water_frac = temperature_water_int = humidity = humidity_frac = humidity_int = None
         logging.error("Decoding JSON Failed")
 
     
