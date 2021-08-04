@@ -69,15 +69,17 @@ def getData(): #ToDo: Exeption handling, if ressource is unavailable or data is 
         temperature_url = 'https://www.kaiserslautern.de/export/baeder/waschmuehle_temperature.jso'
         response = urllib.urlopen(temperature_url)
         data = json.loads(response.read())
+        temperature_water = float(data['data']['external_temperature_1'])
+        temperature_water_int, temperature_water_frac = splitFloat(temperature_water)
+        temperature_air = float(data['data']['temperature'])
+        temperature_air_int, temperature_air_frac = splitFloat(temperature_air)
+        humidity = float(data['data']['humidity'])
+        humidity_int, humidity_frac = splitFloat(humidity)
     except ValueError:  # includes simplejson.decoder.JSONDecodeError
+        temperature_air, temperature_air_frac, temperature_air_int, temperature_water, temperature_water_frac, temperature_water_int, humidity, humidity_frac, humidity_int = None
         logging.error("Decoding JSON Failed")
 
-    temperature_water = float(data['data']['external_temperature_1'])
-    temperature_water_int, temperature_water_frac = splitFloat(temperature_water)
-    temperature_air = float(data['data']['temperature'])
-    temperature_air_int, temperature_air_frac = splitFloat(temperature_air)
-    humidity = float(data['data']['humidity'])
-    humidity_int, humidity_frac = splitFloat(humidity)
+    
     
     #date and time
     now = datetime.now()
