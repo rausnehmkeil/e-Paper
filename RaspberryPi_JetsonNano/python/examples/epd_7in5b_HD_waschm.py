@@ -34,7 +34,7 @@ fontsize_clock0em66 = int(fontsize_clock*0.66)
 fontsize_clock0em50 = int(fontsize_clock*0.50)
 fontsize_clock0em33 = int(fontsize_clock*0.33)
 
-font_small = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), 40)
+font_small = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), 21)
 font0em33 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), fontsize0em33)
 font0em66 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize0em66)
 font1em = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize)
