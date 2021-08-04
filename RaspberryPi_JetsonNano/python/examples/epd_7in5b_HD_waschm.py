@@ -34,6 +34,7 @@ fontsize_clock0em66 = int(fontsize_clock*0.66)
 fontsize_clock0em50 = int(fontsize_clock*0.50)
 fontsize_clock0em33 = int(fontsize_clock*0.33)
 
+fontsmall = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), 40)
 font0em33 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), fontsize0em33)
 font0em66 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize0em66)
 font1em = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize)
@@ -155,7 +156,7 @@ def fillBuffer(data, black, red):
 
 
     draw_black.line((vline, 3*height/4, width, 3*height/4), fill = 0) #horizontal line
-    draw_black.text((vline+0.5*padding, 3*height/4+0.5*padding), "Zuletzt aktualisiert: ", font = font_clock0em33, fill = 0)
+    draw_black.text((vline+0.5*padding, 3*height/4+0.5*padding), "Zuletzt aktualisiert: "+ data["time_date"] + data["time_year"] + data["time_hours"] + data["time_minutes"], font = font_small, fill = 0)
 
     return 0
 
