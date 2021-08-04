@@ -48,13 +48,16 @@ def splitFloat(float_in):
     split = str(float_in).split(".") #split float into integer and fraction part
     out_int = int(split[0])
     out_frac = int(split[1])
+
+    #round fraction part to 5 or 0
     if(out_frac <=2 ): 
-        out_frac=0 #round fraction part to 5 or 0
+        out_frac=0 
     elif(out_frac >2 and  out_frac<=7): 
         out_frac=5
     else :
         out_frac=0
         out_int += 1    
+        
     return out_int, out_frac
 
 
@@ -152,7 +155,7 @@ def fillBuffer(data, black, red):
 
 
     draw_black.line((vline, 3*height/4, width, 3*height/4), fill = 0) #horizontal line
-    
+    draw_black.text((vline+0.5*padding, 3*height/4+0.5*padding), "Zuletzt aktualisiert: ", font = font_clock0em33, fill = 0)
 
     return 0
 
@@ -161,15 +164,15 @@ try:
 
     epd = epd7in5b_HD.EPD()
 
-    while True:
-        logging.info("Init and Clear")
-        epd.init()
-        epd.Clear() 
-        result = getData()
-        black, red = initBuffer()
-        fillBuffer(result, black, red)
-        epd.display(epd.getbuffer(black), epd.getbuffer(red))
-        time.sleep(300) #300s=5min
+    #while True:
+    logging.info("Init and Clear")
+    epd.init()
+    epd.Clear() 
+    result = getData()
+    black, red = initBuffer()
+    fillBuffer(result, black, red)
+    epd.display(epd.getbuffer(black), epd.getbuffer(red))
+        #time.sleep(300) #300s=5min
 
         #logging.info("Goto Sleep...")
         #epd.sleep()
