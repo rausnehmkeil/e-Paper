@@ -22,9 +22,9 @@ logging.basicConfig(level=logging.DEBUG)
 
 height = 528
 width = 880
-padding = 40
+padding = 30
 vmiddle = height/2
-vline = 530
+vline = 510
 fontsize = 264
 fontsize0em66 = int(fontsize*0.66)
 fontsize0em33 = int(fontsize*0.33-10)
