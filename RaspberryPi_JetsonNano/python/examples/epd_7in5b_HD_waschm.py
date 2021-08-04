@@ -65,7 +65,7 @@ def splitFloat(float_in):
 def getData(): #ToDo: Exeption handling, if ressource is unavailable or data is invalid
     logging.info("Retrieving Data...")
     #Sensordata
-    temperature_url = 'https://www.kaiserslautern.de/export/baeder/waschmuehle_temperature.json'
+    temperature_url = 'https://www.kaiserslautern.de/export/baeder/waschmuehle_temperature.jso'
     response = urllib.urlopen(temperature_url)
     data = json.loads(response.read())
 
@@ -151,11 +151,11 @@ def fillBuffer(data, black, red):
     draw_black.text((vline+0.5*padding+2*fontsize_clock, 1*height/4+padding+fontsize_clock0em33), "wahrschein- " , font = font_clock0em33, fill = 0)
     draw_black.text((vline+0.5*padding+2*fontsize_clock, 1*height/4+padding+2*fontsize_clock0em33), "lichkeit" , font = font_clock0em33, fill = 0)
     
-    draw_black.line((vline, 2*height/4, width, 2*height/4), fill = 0) #horizontal line
-    draw_black.text((vline+0.5*padding, 2*height/4+padding), str(data["humidity_int"]).zfill(2) + "." + str(data["humidity_frac"]) + "%", font = font_clock1em, fill = 0)
-    draw_black.text((vline+0.5*padding+2*fontsize_clock, 2*height/4+padding), "Luft- " , font = font_clock0em33, fill = 0)
-    draw_black.text((vline+0.5*padding+2*fontsize_clock, 2*height/4+padding+fontsize_clock0em33), "feuchtig- " , font = font_clock0em33, fill = 0)
-    draw_black.text((vline+0.5*padding+2*fontsize_clock, 2*height/4+padding+2*fontsize_clock0em33), "keit" , font = font_clock0em33, fill = 0)
+    draw_black.line((vline, 2*height/16, width, 2*height/4), fill = 0) #horizontal line
+    draw_black.text((vline+0.5*padding, 2*height/16+padding), str(data["humidity_int"]).zfill(2) + "." + str(data["humidity_frac"]) + "%", font = font_clock1em, fill = 0)
+    draw_black.text((vline+0.5*padding+2*fontsize_clock, 2*height/16+padding), "Luft- " , font = font_clock0em33, fill = 0)
+    draw_black.text((vline+0.5*padding+2*fontsize_clock, 2*height/16+padding+fontsize_clock0em33), "feuchtig- " , font = font_clock0em33, fill = 0)
+    draw_black.text((vline+0.5*padding+2*fontsize_clock, 2*height/16+padding+2*fontsize_clock0em33), "keit" , font = font_clock0em33, fill = 0)
 
 
     draw_black.line((vline, 3*height/4, width, 3*height/4), fill = 0) #horizontal line
