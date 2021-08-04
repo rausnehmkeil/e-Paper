@@ -34,7 +34,8 @@ fontsize_clock0em66 = int(fontsize_clock*0.66)
 fontsize_clock0em50 = int(fontsize_clock*0.50)
 fontsize_clock0em33 = int(fontsize_clock*0.33-5)
 
-font_small = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), 26)
+font_small = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), 36)
+font_weekday = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), 26)
 font0em33 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), fontsize0em33)
 font0em66 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize0em66)
 font1em = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize)
@@ -156,7 +157,7 @@ def fillBuffer(data, black, red):
     draw_black.line((vline, 0, vline, height), fill = 0) #vertical Line
 
     #Day
-    draw_black.text((vline+0.5*padding, padding), data["time_weekday"], font = font_clock1em, fill = 0)
+    draw_black.text((vline+0.5*padding, padding), data["time_weekday"], font = font_weekday, fill = 0)
     draw_black.line((vline, height*1/8, width, height*1/8), fill = 0) #horizontal line
     
     #Date
