@@ -29,7 +29,7 @@ fontsize = 264
 fontsize0em66 = int(fontsize*0.66)
 fontsize0em33 = int(fontsize*0.33-10)
 
-fontsize_clock = 100
+fontsize_clock = 110
 fontsize_clock0em66 = int(fontsize_clock*0.66)
 fontsize_clock0em50 = int(fontsize_clock*0.50)
 fontsize_clock0em33 = int(fontsize_clock*0.33-5)
