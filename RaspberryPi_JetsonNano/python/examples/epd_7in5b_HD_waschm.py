@@ -92,8 +92,8 @@ def getData(): #ToDo: Exeption handling, if ressource is unavailable or data is 
 
     #weather 
     try:
-        temperature_url = 'https://www.kaiserslautern.de/export/wetter/dwd_wetter_morlautern.jso'
-        response = urllib.urlopen(temperature_url)
+        dwd_url = 'https://www.kaiserslautern.de/export/wetter/dwd_wetter_morlautern.jso'
+        response = urllib.urlopen(dwd_url)
         logging.debug(response)
         data = json.loads(response.read())
         precipitation = float(data['precipitation_perc'])
@@ -102,6 +102,7 @@ def getData(): #ToDo: Exeption handling, if ressource is unavailable or data is 
     except ValueError:
         precipitation = precipitation_frac = precipitation_int = None
         weather_error = True
+        logging.error("Decoding JSON Failed. URL: " + dwd_url)
 
     result = {
         "temperature_water_int" : temperature_water_int,
@@ -181,7 +182,6 @@ try:
 
     epd = epd7in5b_HD.EPD()
 
-    #while True:
     logging.info("Init and Clear")
     epd.init()
     epd.Clear() 
@@ -189,10 +189,6 @@ try:
     black, red = initBuffer()
     fillBuffer(result, black, red)
     epd.display(epd.getbuffer(black), epd.getbuffer(red))
-        #time.sleep(300) #300s=5min
-
-        #logging.info("Goto Sleep...")
-        #epd.sleep()
     
 except IOError as e:
     logging.info(e)
