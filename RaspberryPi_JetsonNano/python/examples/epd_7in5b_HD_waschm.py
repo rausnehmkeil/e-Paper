@@ -123,16 +123,16 @@ def fillBuffer(data, black, red):
     logging.info("Fill Image Buffer...")
     draw_black = ImageDraw.Draw(black)
     #draw_red = ImageDraw.Draw(red)
-    
+
     #Temperatures
-    draw_black.text((padding, 2*padding), str(data["temperature_air_int"]).zfill(2), font = font1em, fill = 0)
-    draw_black.text((290, 2*padding), "." + str(data["temperature_air_frac"]) + u"°C", font = font0em66, fill = 0)
-    draw_black.text((290, 2*padding+fontsize0em66-30), "Luft", font = font0em33, fill = 0)
+    draw_black.text((padding, 1.5*padding), str(data["temperature_air_int"]).zfill(2), font = font1em, fill = 0)
+    draw_black.text((290, 1.5*padding), "." + str(data["temperature_air_frac"]) + u"°C", font = font0em66, fill = 0)
+    draw_black.text((290, 1.5*padding+fontsize0em66-30), "Luft", font = font0em33, fill = 0)
 
     draw_black.line((0, vmiddle, vline, vmiddle), fill = 0) # horizontal line
-    draw_black.text((padding, vmiddle+2*padding), str(data["temperature_water_int"]).zfill(2), font = font1em, fill = 0)
-    draw_black.text((290, vmiddle+2*padding), "." + str(data["temperature_water_frac"]) + u"°C", font = font0em66, fill = 0)
-    draw_black.text((290, vmiddle+2*padding+fontsize0em66-30), "Wasser", font = font0em33, fill = 0)
+    draw_black.text((padding, vmiddle+1.5*padding), str(data["temperature_water_int"]).zfill(2), font = font1em, fill = 0)
+    draw_black.text((290, vmiddle+1.5*padding), "." + str(data["temperature_water_frac"]) + u"°C", font = font0em66, fill = 0)
+    draw_black.text((290, vmiddle+1.5*padding+fontsize0em66-30), "Wasser", font = font0em33, fill = 0)
     
     draw_black.line((vline, 0, vline, height), fill = 0) #vertical Line
 
