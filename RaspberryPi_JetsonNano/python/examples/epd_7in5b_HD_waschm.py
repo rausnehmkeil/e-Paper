@@ -75,9 +75,11 @@ def getData(): #ToDo: Exeption handling, if ressource is unavailable or data is 
         temperature_air_int, temperature_air_frac = splitFloat(temperature_air)
         humidity = float(data['data']['humidity'])
         humidity_int, humidity_frac = splitFloat(humidity)
-    except ValueError:  # includes simplejson.decoder.JSONDecodeError
+        sensor_error = False
+    except ValueError:
         temperature_air = temperature_air_frac = temperature_air_int = temperature_water = temperature_water_frac = temperature_water_int = humidity = humidity_frac = humidity_int = None
-        logging.error("Decoding JSON Failed")
+        sensor_error = True
+        logging.error("Decoding JSON Failed. URL: " + temperature_url)
 
     
     
@@ -89,12 +91,17 @@ def getData(): #ToDo: Exeption handling, if ressource is unavailable or data is 
     time_date = now.strftime("%d.%m.")
 
     #weather 
-    temperature_url = 'https://www.kaiserslautern.de/export/wetter/dwd_wetter_morlautern.json'
-    response = urllib.urlopen(temperature_url)
-    logging.debug(response)
-    data = json.loads(response.read())
-    precipitation = float(data['precipitation_perc'])
-    precipitation_int, precipitation_frac = splitFloat(precipitation)
+    try:
+        temperature_url = 'https://www.kaiserslautern.de/export/wetter/dwd_wetter_morlautern.json'
+        response = urllib.urlopen(temperature_url)
+        logging.debug(response)
+        data = json.loads(response.read())
+        precipitation = float(data['precipitation_perc'])
+        precipitation_int, precipitation_frac = splitFloat(precipitation)
+        weather_error = False
+    except ValueError:
+        precipitation = precipitation_frac = precipitation_int = None
+        weather_error = True
 
     result = {
         "temperature_water_int" : temperature_water_int,
@@ -104,13 +111,15 @@ def getData(): #ToDo: Exeption handling, if ressource is unavailable or data is 
         "humidity" : humidity,
         "humidity_int" : humidity_int,
         "humidity_frac" : humidity_frac,
+        "sensor_error" : sensor_error,
         "time_hours" : time_hours,
         "time_minutes" : time_minutes,
         "time_year" : time_year,
         "time_date" : time_date,
         "precipitation" : precipitation,
         "precipitation_int" : precipitation_int,
-        "precipitation_frac" : precipitation_frac
+        "precipitation_frac" : precipitation_frac,
+        "weather_error" : weather_error
     }
     logging.debug("Recieved Data: " + str(result))
     return result
@@ -130,37 +139,36 @@ def fillBuffer(data, black, red):
     #draw_red = ImageDraw.Draw(red)
 
     #Temperatures
-    draw_black.text((padding, 1.5*padding), str(data["temperature_air_int"]).zfill(2), font = font1em, fill = 0)
-    draw_black.text((290, 1.5*padding), "." + str(data["temperature_air_frac"]) + u"°C", font = font0em66, fill = 0)
-    draw_black.text((290, 1.5*padding+fontsize0em66-30), "Luft", font = font0em33, fill = 0)
+    if(data["sensor_error"] == False):
+        draw_black.text((padding, 1.5*padding), str(data["temperature_air_int"]).zfill(2), font = font1em, fill = 0)
+        draw_black.text((290, 1.5*padding), "." + str(data["temperature_air_frac"]) + u"°C", font = font0em66, fill = 0)
+        draw_black.text((290, 1.5*padding+fontsize0em66-30), "Luft", font = font0em33, fill = 0)
 
     draw_black.line((0, vmiddle, vline, vmiddle), fill = 0) # horizontal line
-    draw_black.text((padding, vmiddle+1.5*padding), str(data["temperature_water_int"]).zfill(2), font = font1em, fill = 0)
-    draw_black.text((290, vmiddle+1.5*padding), "." + str(data["temperature_water_frac"]) + u"°C", font = font0em66, fill = 0)
-    draw_black.text((290, vmiddle+1.5*padding+fontsize0em66-30), "Wasser", font = font0em33, fill = 0)
+    if(data["sensor_error"] == False):
+        draw_black.text((padding, vmiddle+1.5*padding), str(data["temperature_water_int"]).zfill(2), font = font1em, fill = 0)
+        draw_black.text((290, vmiddle+1.5*padding), "." + str(data["temperature_water_frac"]) + u"°C", font = font0em66, fill = 0)
+        draw_black.text((290, vmiddle+1.5*padding+fontsize0em66-30), "Wasser", font = font0em33, fill = 0)
     
     draw_black.line((vline, 0, vline, height), fill = 0) #vertical Line
-
-    #Time
-    #draw_black.text((vline+0.5*padding, padding), data["time_hours"], font = font_clock1em, fill = 0)
-    #draw_black.text((vline+0.5*padding+fontsize_clock, padding), data["time_minutes"], font = font_clock0em66, fill = 0)
-    #draw_black.text((vline+0.5*padding+fontsize_clock, padding+fontsize_clock0em66-5), "Uhr", font = font_clock0em33, fill = 0)
 
     #Date
     draw_black.text((vline+0.5*padding, padding), data["time_date"] + data["time_year"], font = font_clock1em, fill = 0)
     draw_black.line((vline, 1*height/4, width, 1*height/4), fill = 0) #horizontal line
 
     #Weather
-    draw_black.text((vline+0.5*padding, 1*height/4+padding), str(data["precipitation_int"]).zfill(2) + "." + str(data["precipitation_frac"]) + "%", font = font_clock1em, fill = 0)
-    draw_black.text((vline+0.5*padding+2*fontsize_clock, 1*height/4+padding), "Regen- " , font = font_clock0em33, fill = 0)
-    draw_black.text((vline+0.5*padding+2*fontsize_clock, 1*height/4+padding+fontsize_clock0em33), "wahrschein- " , font = font_clock0em33, fill = 0)
-    draw_black.text((vline+0.5*padding+2*fontsize_clock, 1*height/4+padding+2*fontsize_clock0em33), "lichkeit" , font = font_clock0em33, fill = 0)
-    
+    if(data["weather_error"] == False):
+        draw_black.text((vline+0.5*padding, 1*height/4+padding), str(data["precipitation_int"]).zfill(2) + "." + str(data["precipitation_frac"]) + "%", font = font_clock1em, fill = 0)
+        draw_black.text((vline+0.5*padding+2*fontsize_clock, 1*height/4+padding), "Regen- " , font = font_clock0em33, fill = 0)
+        draw_black.text((vline+0.5*padding+2*fontsize_clock, 1*height/4+padding+fontsize_clock0em33), "wahrschein- " , font = font_clock0em33, fill = 0)
+        draw_black.text((vline+0.5*padding+2*fontsize_clock, 1*height/4+padding+2*fontsize_clock0em33), "lichkeit" , font = font_clock0em33, fill = 0)
+        
     draw_black.line((vline, 2*height/16, width, 2*height/4), fill = 0) #horizontal line
-    draw_black.text((vline+0.5*padding, 2*height/16+padding), str(data["humidity_int"]).zfill(2) + "." + str(data["humidity_frac"]) + "%", font = font_clock1em, fill = 0)
-    draw_black.text((vline+0.5*padding+2*fontsize_clock, 2*height/16+padding), "Luft- " , font = font_clock0em33, fill = 0)
-    draw_black.text((vline+0.5*padding+2*fontsize_clock, 2*height/16+padding+fontsize_clock0em33), "feuchtig- " , font = font_clock0em33, fill = 0)
-    draw_black.text((vline+0.5*padding+2*fontsize_clock, 2*height/16+padding+2*fontsize_clock0em33), "keit" , font = font_clock0em33, fill = 0)
+    if(data["sensor_error"] == False):
+        draw_black.text((vline+0.5*padding, 2*height/16+padding), str(data["humidity_int"]).zfill(2) + "." + str(data["humidity_frac"]) + "%", font = font_clock1em, fill = 0)
+        draw_black.text((vline+0.5*padding+2*fontsize_clock, 2*height/16+padding), "Luft- " , font = font_clock0em33, fill = 0)
+        draw_black.text((vline+0.5*padding+2*fontsize_clock, 2*height/16+padding+fontsize_clock0em33), "feuchtig- " , font = font_clock0em33, fill = 0)
+        draw_black.text((vline+0.5*padding+2*fontsize_clock, 2*height/16+padding+2*fontsize_clock0em33), "keit" , font = font_clock0em33, fill = 0)
 
 
     draw_black.line((vline, 3*height/4, width, 3*height/4), fill = 0) #horizontal line
