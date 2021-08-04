@@ -65,9 +65,12 @@ def splitFloat(float_in):
 def getData(): #ToDo: Exeption handling, if ressource is unavailable or data is invalid
     logging.info("Retrieving Data...")
     #Sensordata
-    temperature_url = 'https://www.kaiserslautern.de/export/baeder/waschmuehle_temperature.jso'
-    response = urllib.urlopen(temperature_url)
-    data = json.loads(response.read())
+    try:
+        temperature_url = 'https://www.kaiserslautern.de/export/baeder/waschmuehle_temperature.jso'
+        response = urllib.urlopen(temperature_url)
+        data = json.loads(response.read())
+    except ValueError:  # includes simplejson.decoder.JSONDecodeError
+        logging.error("Decoding JSON Failed")
 
     temperature_water = float(data['data']['external_temperature_1'])
     temperature_water_int, temperature_water_frac = splitFloat(temperature_water)
