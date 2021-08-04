@@ -170,7 +170,8 @@ def fillBuffer(data, black, red):
         draw_black.text((vline+0.5*padding+2*fontsize_clock, height*3/8+padding+fontsize_clock0em33), "wahrschein- " , font = font_clock0em33, fill = 0)
         draw_black.text((vline+0.5*padding+2*fontsize_clock, height*3/8+padding+2*fontsize_clock0em33), "lichkeit" , font = font_clock0em33, fill = 0)
         
-    draw_black.line((vline, height*5/8), width, height*5/8), fill = 0) #horizontal line
+    draw_black.line((vline, height*5/8, width, height*5/8), fill = 0) #horizontal line
+
     if(data["sensor_error"] == False):
         draw_black.text((vline+0.5*padding, height*5/8)+padding), str(data["humidity_int"]).zfill(2) + "." + str(data["humidity_frac"]) + "%", font = font_clock1em, fill = 0)
         draw_black.text((vline+0.5*padding+2*fontsize_clock, height*5/8)+padding), "Luft- " , font = font_clock0em33, fill = 0)
