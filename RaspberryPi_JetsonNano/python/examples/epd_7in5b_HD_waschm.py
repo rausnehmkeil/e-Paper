@@ -144,14 +144,14 @@ def fillBuffer(data, black, red):
     #Temperatures
     if(data["sensor_error"] == False):
         draw_black.text((0.5*padding, 1.5*padding), str(data["temperature_air_int"]).zfill(2), font = font1em, fill = 0)
-        draw_black.text((0.5*padding*fontsize, 1.5*padding), "." + str(data["temperature_air_frac"]) + u"°C", font = font0em66, fill = 0)
-        draw_black.text((0.5*padding*fontsize, 1.5*padding+fontsize0em66-30), "Luft", font = font0em33, fill = 0)
+        draw_black.text((290, 1.5*padding), "." + str(data["temperature_air_frac"]) + u"°C", font = font0em66, fill = 0)
+        draw_black.text((290, 1.5*padding+fontsize0em66-30), "Luft", font = font0em33, fill = 0)
 
     draw_black.line((0, vmiddle, vline, vmiddle), fill = 0) # horizontal line
     if(data["sensor_error"] == False):
         draw_black.text((0.5*padding, vmiddle+1.5*padding), str(data["temperature_water_int"]).zfill(2), font = font1em, fill = 0)
-        draw_black.text((0.5*padding*fontsize, vmiddle+1.5*padding), "." + str(data["temperature_water_frac"]) + u"°C", font = font0em66, fill = 0)
-        draw_black.text((0.5*padding*fontsize, vmiddle+1.5*padding+fontsize0em66-30), "Wasser", font = font0em33, fill = 0)
+        draw_black.text((290, vmiddle+1.5*padding), "." + str(data["temperature_water_frac"]) + u"°C", font = font0em66, fill = 0)
+        draw_black.text((290, vmiddle+1.5*padding+fontsize0em66-30), "Wasser", font = font0em33, fill = 0)
     
     draw_black.line((vline, 0, vline, height), fill = 0) #vertical Line
 
