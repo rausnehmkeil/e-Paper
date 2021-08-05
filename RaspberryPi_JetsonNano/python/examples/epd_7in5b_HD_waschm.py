@@ -156,7 +156,7 @@ def fillBuffer(data, black, red):
     draw_black.line((vline, 0, vline, height), fill = 0) #vertical Line
 
     #Day
-    draw_black.rectangle((vline+0.5*padding, padding, vline, height*1/8, width, height*1/8), fill = 0)
+    draw_black.rectangle((vline, height, width, height*1/8), fill = 0)
     draw_black.text((vline+0.5*padding, padding), data["time_weekday"], font = font_weekday, fill = 255)
     #draw_black.line((vline, height*1/8, width, height*1/8), fill = 0) #horizontal line
     
