@@ -23,9 +23,9 @@ height = 528
 width = 880
 padding = 30
 col1_padding_left = 15
-col1_padding_top = 30
+col1_padding_top = 35
 col2_padding_left = 30
-col2_padding_top = 25
+col2_padding_top = 30
 vmiddle = height/2
 vline = 510
 
@@ -162,7 +162,7 @@ def fillBuffer(data, black, red):
 
     #Day
     #draw_black.rectangle((vline, 0, width, height*1/8), fill = 0)
-    draw_black.text((vline+col2_padding_left, col2_padding_top), data["time_weekday"], font = font_weekday, fill = 0)
+    draw_black.text((vline+col2_padding_left, 0.5*col2_padding_top), data["time_weekday"], font = font_weekday, fill = 0)
     draw_black.line((vline, height*1/8, width, height*1/8), fill = 0) #horizontal line
     
     #Date
@@ -186,7 +186,7 @@ def fillBuffer(data, black, red):
 
 
     draw_black.line((vline, height*7/8, width, height*7/8), fill = 0) #horizontal line
-    draw_black.text((vline+col2_padding_left, height*7/8+col2_padding_top), "Zuletzt aktualisiert: "+ data["time_date"] + data["time_year"] +" " + data["time_hours"] + ":" + data["time_minutes"], font = font_small, fill = 0)
+    draw_black.text((vline+col2_padding_left, height*7/8+0.5*col2_padding_top), "Zuletzt aktualisiert: "+ data["time_date"] + data["time_year"] +" " + data["time_hours"] + ":" + data["time_minutes"], font = font_small, fill = 0)
 
     return 0
 
