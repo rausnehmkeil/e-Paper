@@ -25,7 +25,7 @@ padding = 30
 col1_padding_left = 15
 col1_padding_top = 30
 col2_padding_left = 30
-col2_padding_top = 15
+col2_padding_top = 25
 vmiddle = height/2
 vline = 510
 
@@ -148,15 +148,15 @@ def fillBuffer(data, black, red):
 
     #Temperatures
     if(data["sensor_error"] == False):
-        draw_black.text((col1_padding_top, col1_padding_left), str(data["temperature_air_int"]).zfill(2), font = col1_font1em, fill = 0)
-        draw_black.text((col1_padding_top+col1_fontsize, col1_padding_left), "." + str(data["temperature_air_frac"]) + u"°C", font = col1_font0em66, fill = 0)
-        draw_black.text((col1_padding_top+col1_fontsize, col1_padding_left+col1_fontsize0em66-30), "Luft", font = col1_font0em33, fill = 0)
+        draw_black.text((col1_padding_left, col1_padding_top), str(data["temperature_air_int"]).zfill(2), font = col1_font1em, fill = 0)
+        draw_black.text((col1_padding_left+col1_fontsize, col1_padding_top), "." + str(data["temperature_air_frac"]) + u"°C", font = col1_font0em66, fill = 0)
+        draw_black.text((col1_padding_left+col1_fontsize, col1_padding_top+col1_fontsize0em66-30), "Luft", font = col1_font0em33, fill = 0)
 
     draw_black.line((0, vmiddle, vline, vmiddle), fill = 0) # horizontal line
     if(data["sensor_error"] == False):
-        draw_black.text((col1_padding_top, vmiddle+col1_padding_left), str(data["temperature_water_int"]).zfill(2), font = col1_font1em, fill = 0)
-        draw_black.text((col1_padding_top+col1_fontsize, vmiddle+col1_padding_left), "." + str(data["temperature_water_frac"]) + u"°C", font = col1_font0em66, fill = 0)
-        draw_black.text((col1_padding_top+col1_fontsize, vmiddle+col1_padding_left+col1_fontsize0em66-30), "Wasser", font = col1_font0em33, fill = 0)
+        draw_black.text((col1_padding_left, vmiddle+col1_padding_top), str(data["temperature_water_int"]).zfill(2), font = col1_font1em, fill = 0)
+        draw_black.text((col1_padding_left+col1_fontsize, vmiddle+col1_padding_top), "." + str(data["temperature_water_frac"]) + u"°C", font = col1_font0em66, fill = 0)
+        draw_black.text((col1_padding_left+col1_fontsize, vmiddle+col1_padding_top+col1_fontsize0em66-30), "Wasser", font = col1_font0em33, fill = 0)
     
     draw_black.line((vline, 0, vline, height), fill = 0) #vertical Line
 
