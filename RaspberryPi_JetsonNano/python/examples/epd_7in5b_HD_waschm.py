@@ -2,22 +2,21 @@
 # -*- coding:utf-8 -*-
 import sys
 import os
-picdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'pic')
-libdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'lib')
-fontdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'font')
 if os.path.exists(libdir):
     sys.path.append(libdir)
 
 import logging
 from waveshare_epd import epd7in5b_HD
-import time
 from PIL import Image,ImageDraw,ImageFont
-import traceback
-
 import urllib, json
 from datetime import datetime
+import locale
 
+locale.setlocale(locale.LC_TIME, "de_DE")
 logging.basicConfig(level=logging.DEBUG)
+picdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'pic')
+libdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'lib')
+fontdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'font')
 
 
 height = 528
@@ -157,8 +156,9 @@ def fillBuffer(data, black, red):
     draw_black.line((vline, 0, vline, height), fill = 0) #vertical Line
 
     #Day
-    draw_black.text((vline+0.5*padding, padding), data["time_weekday"], font = font_weekday, fill = 0)
-    draw_black.line((vline, height*1/8, width, height*1/8), fill = 0) #horizontal line
+    draw_black.rectangle((vline+0.5*padding, padding, vline, height*1/8, width, height*1/8), fill = 0)
+    draw_black.text((vline+0.5*padding, padding), data["time_weekday"], font = font_weekday, fill = 255)
+    #draw_black.line((vline, height*1/8, width, height*1/8), fill = 0) #horizontal line
     
     #Date
     draw_black.text((vline+0.5*padding, height*1/8+padding), data["time_date"] + data["time_year"], font = font_clock1em, fill = 0)
