@@ -22,27 +22,32 @@ logging.basicConfig(level=logging.DEBUG)
 height = 528
 width = 880
 padding = 30
+col1_padding_left = 30
+col1_padding_top = 30
+col2_padding_left = 30
+col2_padding_top = 30
 vmiddle = height/2
 vline = 510
-fontsize = 264
-fontsize0em66 = int(fontsize*0.66)
-fontsize0em33 = int(fontsize*0.33-10)
 
-fontsize_clock = 110
-fontsize_clock0em66 = int(fontsize_clock*0.66)
-fontsize_clock0em50 = int(fontsize_clock*0.50)
-fontsize_clock0em33 = int(fontsize_clock*0.33-5)
+col1_fontsize = 264
+col1_fontsize0em66 = int(col1_fontsize*0.66)
+col1_fontsize0em33 = int(col1_fontsize*0.33-10)
+
+col2_fontsize = 110
+col2_fontsize0em66 = int(col2_fontsize*0.66)
+col2_fontsize0em50 = int(col2_fontsize*0.50)
+col2_fontsize0em33 = int(col2_fontsize*0.33-5)
+
+col1_font1em = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), col1_fontsize)
+col1_font0em33 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), col1_fontsize0em33)
+col1_font0em66 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), col1_fontsize0em66)
 
 font_small = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), 26)
 font_weekday = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), 40)
-font0em33 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), fontsize0em33)
-font0em66 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize0em66)
-font1em = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize)
-
-font_clock1em = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize_clock)
-font_clock0em66 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize_clock0em66)
-font_clock0em50 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), fontsize_clock0em50)
-font_clock0em33 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), fontsize_clock0em33)
+col2_font1em = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), col2_fontsize)
+col2_font0em66 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), col2_fontsize0em66)
+col2_font0em50 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), col2_fontsize0em50)
+col2_font0em33 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), col2_fontsize0em33)
 
 
 def splitFloat(float_in):
@@ -143,45 +148,45 @@ def fillBuffer(data, black, red):
 
     #Temperatures
     if(data["sensor_error"] == False):
-        draw_black.text((0.5*padding, 1.5*padding), str(data["temperature_air_int"]).zfill(2), font = font1em, fill = 0)
-        draw_black.text((290, 1.5*padding), "." + str(data["temperature_air_frac"]) + u"°C", font = font0em66, fill = 0)
-        draw_black.text((290, 1.5*padding+fontsize0em66-30), "Luft", font = font0em33, fill = 0)
+        draw_black.text((col1_padding_top, col1_padding_left), str(data["temperature_air_int"]).zfill(2), font = col1_font1em, fill = 0)
+        draw_black.text((col1_padding_top+col1_fontsize, col1_padding_left), "." + str(data["temperature_air_frac"]) + u"°C", font = col1_font0em66, fill = 0)
+        draw_black.text((col1_padding_top+col1_fontsize, col1_padding_left+col1_fontsize0em66-30), "Luft", font = col1_font0em33, fill = 0)
 
     draw_black.line((0, vmiddle, vline, vmiddle), fill = 0) # horizontal line
     if(data["sensor_error"] == False):
-        draw_black.text((0.5*padding, vmiddle+1.5*padding), str(data["temperature_water_int"]).zfill(2), font = font1em, fill = 0)
-        draw_black.text((290, vmiddle+1.5*padding), "." + str(data["temperature_water_frac"]) + u"°C", font = font0em66, fill = 0)
-        draw_black.text((290, vmiddle+1.5*padding+fontsize0em66-30), "Wasser", font = font0em33, fill = 0)
+        draw_black.text((col1_padding_top, vmiddle+col1_padding_left), str(data["temperature_water_int"]).zfill(2), font = col1_font1em, fill = 0)
+        draw_black.text((col1_padding_top+col1_fontsize, vmiddle+col1_padding_left), "." + str(data["temperature_water_frac"]) + u"°C", font = col1_font0em66, fill = 0)
+        draw_black.text((col1_padding_top+col1_fontsize, vmiddle+col1_padding_left+col1_fontsize0em66-30), "Wasser", font = col1_font0em33, fill = 0)
     
     draw_black.line((vline, 0, vline, height), fill = 0) #vertical Line
 
     #Day
     #draw_black.rectangle((vline, 0, width, height*1/8), fill = 0)
-    draw_black.text((vline+0.5*padding, padding), data["time_weekday"], font = font_weekday, fill = 0)
+    draw_black.text((vline+col2_padding_left, col2_padding_top), data["time_weekday"], font = font_weekday, fill = 0)
     draw_black.line((vline, height*1/8, width, height*1/8), fill = 0) #horizontal line
     
     #Date
-    draw_black.text((vline+0.5*padding, height*1/8+padding), data["time_date"] + data["time_year"], font = font_clock1em, fill = 0)
+    draw_black.text((vline+col2_padding_left, height*1/8+col2_padding_top), data["time_date"] + data["time_year"], font = col2_font1em, fill = 0)
     draw_black.line((vline, height*3/8, width, height*3/8), fill = 0) #horizontal line
 
     #Weather
     if(data["weather_error"] == False):
-        draw_black.text((vline+0.5*padding, height*3/8+padding), str(data["precipitation_int"]).zfill(2) + "%", font = font_clock1em, fill = 0)
-        draw_black.text((vline+0.5*padding+1.5*fontsize_clock, height*3/8+padding), "Regen- " , font = font_clock0em33, fill = 0)
-        draw_black.text((vline+0.5*padding+1.5*fontsize_clock, height*3/8+padding+fontsize_clock0em33), "wahrschein- " , font = font_clock0em33, fill = 0)
-        draw_black.text((vline+0.5*padding+1.5*fontsize_clock, height*3/8+padding+2*fontsize_clock0em33), "lichkeit" , font = font_clock0em33, fill = 0)
+        draw_black.text((vline+col2_padding_left, height*3/8+col2_padding_top), str(data["precipitation_int"]).zfill(2) + "%", font = col2_font1em, fill = 0)
+        draw_black.text((vline+col2_padding_left+1.5*col2_fontsize, height*3/8+col2_padding_top), "Regen- " , font = col2_font0em33, fill = 0)
+        draw_black.text((vline+col2_padding_left+1.5*col2_fontsize, height*3/8+col2_padding_top+col2_fontsize0em33), "wahrschein- " , font = col2_font0em33, fill = 0)
+        draw_black.text((vline+col2_padding_left+1.5*col2_fontsize, height*3/8+col2_padding_top+2*col2_fontsize0em33), "lichkeit" , font = col2_font0em33, fill = 0)
         
     draw_black.line((vline, height*5/8, width, height*5/8), fill = 0) #horizontal line
 
     if(data["sensor_error"] == False):
-        draw_black.text((vline+0.5*padding, height*5/8+padding), str(data["humidity_int"]).zfill(2) + "%", font = font_clock1em, fill = 0)
-        draw_black.text((vline+0.5*padding+1.5*fontsize_clock, height*5/8+padding), "Luft- " , font = font_clock0em33, fill = 0)
-        draw_black.text((vline+0.5*padding+1.5*fontsize_clock, height*5/8+padding+fontsize_clock0em33), "feuchtig- " , font = font_clock0em33, fill = 0)
-        draw_black.text((vline+0.5*padding+1.5*fontsize_clock, height*5/8+padding+2*fontsize_clock0em33), "keit" , font = font_clock0em33, fill = 0)
+        draw_black.text((vline+col2_padding_left, height*5/8+col2_padding_top), str(data["humidity_int"]).zfill(2) + "%", font = col2_font1em, fill = 0)
+        draw_black.text((vline+col2_padding_left+1.5*col2_fontsize, height*5/8+col2_padding_top), "Luft- " , font = col2_font0em33, fill = 0)
+        draw_black.text((vline+col2_padding_left+1.5*col2_fontsize, height*5/8+col2_padding_top+col2_fontsize0em33), "feuchtig- " , font = col2_font0em33, fill = 0)
+        draw_black.text((vline+col2_padding_left+1.5*col2_fontsize, height*5/8+col2_padding_top+2*col2_fontsize0em33), "keit" , font = col2_font0em33, fill = 0)
 
 
     draw_black.line((vline, height*7/8, width, height*7/8), fill = 0) #horizontal line
-    draw_black.text((vline+0.5*padding, height*7/8+padding), "Zuletzt aktualisiert: "+ data["time_date"] + data["time_year"] +" " + data["time_hours"] + ":" + data["time_minutes"], font = font_small, fill = 0)
+    draw_black.text((vline+col2_padding_left, height*7/8+col2_padding_top), "Zuletzt aktualisiert: "+ data["time_date"] + data["time_year"] +" " + data["time_hours"] + ":" + data["time_minutes"], font = font_small, fill = 0)
 
     return 0
 
