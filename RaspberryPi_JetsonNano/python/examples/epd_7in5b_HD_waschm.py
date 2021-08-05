@@ -43,7 +43,7 @@ col1_font0em33 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), col1_f
 col1_font0em66 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), col1_fontsize0em66)
 
 font_small = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), 26)
-font_weekday = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), 40)
+#font_weekday = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), 40)
 col2_font1em = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), col2_fontsize)
 col2_font0em66 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), col2_fontsize0em66)
 col2_font0em50 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), col2_fontsize0em50)
@@ -162,7 +162,7 @@ def fillBuffer(data, black, red):
 
     #Day
     #draw_black.rectangle((vline, 0, width, height*1/8), fill = 0)
-    draw_black.text((vline+col2_padding_left, 0.5*col2_padding_top), data["time_weekday"], font = font_weekday, fill = 0)
+    draw_black.text((vline+col2_padding_left, 0.5*col2_padding_top), data["time_weekday"], font = col2_font0em50, fill = 0)
     draw_black.line((vline, height*1/8, width, height*1/8), fill = 0) #horizontal line
     
     #Date
