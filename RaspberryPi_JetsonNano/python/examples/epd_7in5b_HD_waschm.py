@@ -22,10 +22,10 @@ logging.basicConfig(level=logging.DEBUG)
 height = 528
 width = 880
 padding = 30
-col1_padding_left = 30
+col1_padding_left = 15
 col1_padding_top = 30
 col2_padding_left = 30
-col2_padding_top = 30
+col2_padding_top = 15
 vmiddle = height/2
 vline = 510
 
