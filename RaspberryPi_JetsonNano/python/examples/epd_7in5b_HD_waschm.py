@@ -7,7 +7,7 @@ libdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__)
 fontdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'font')
 if os.path.exists(libdir):
     sys.path.append(libdir)
-    
+
 import logging
 from waveshare_epd import epd7in5b_HD
 from PIL import Image,ImageDraw,ImageFont
@@ -15,7 +15,7 @@ import urllib, json
 from datetime import datetime
 import locale
 
-locale.setlocale(locale.LC_TIME, "de_DE")
+locale.setlocale(locale.LC_TIME, "de_DE.UTF-8")
 logging.basicConfig(level=logging.DEBUG)
 
 
