@@ -143,22 +143,22 @@ def fillBuffer(data, black, red):
 
     #Temperatures
     if(data["sensor_error"] == False):
-        draw_black.text((padding, 1.5*padding), str(data["temperature_air_int"]).zfill(2), font = font1em, fill = 0)
-        draw_black.text((290, 1.5*padding), "." + str(data["temperature_air_frac"]) + u"°C", font = font0em66, fill = 0)
-        draw_black.text((290, 1.5*padding+fontsize0em66-30), "Luft", font = font0em33, fill = 0)
+        draw_black.text((0.5*padding, 1.5*padding), str(data["temperature_air_int"]).zfill(2), font = font1em, fill = 0)
+        draw_black.text((0.5*padding*fontsize, 1.5*padding), "." + str(data["temperature_air_frac"]) + u"°C", font = font0em66, fill = 0)
+        draw_black.text((0.5*padding*fontsize, 1.5*padding+fontsize0em66-30), "Luft", font = font0em33, fill = 0)
 
     draw_black.line((0, vmiddle, vline, vmiddle), fill = 0) # horizontal line
     if(data["sensor_error"] == False):
-        draw_black.text((padding, vmiddle+1.5*padding), str(data["temperature_water_int"]).zfill(2), font = font1em, fill = 0)
-        draw_black.text((290, vmiddle+1.5*padding), "." + str(data["temperature_water_frac"]) + u"°C", font = font0em66, fill = 0)
-        draw_black.text((290, vmiddle+1.5*padding+fontsize0em66-30), "Wasser", font = font0em33, fill = 0)
+        draw_black.text((0.5*padding, vmiddle+1.5*padding), str(data["temperature_water_int"]).zfill(2), font = font1em, fill = 0)
+        draw_black.text((0.5*padding*fontsize, vmiddle+1.5*padding), "." + str(data["temperature_water_frac"]) + u"°C", font = font0em66, fill = 0)
+        draw_black.text((0.5*padding*fontsize, vmiddle+1.5*padding+fontsize0em66-30), "Wasser", font = font0em33, fill = 0)
     
     draw_black.line((vline, 0, vline, height), fill = 0) #vertical Line
 
     #Day
-    draw_black.rectangle((vline, 0, width, height*1/8), fill = 0)
-    draw_black.text((vline+0.5*padding, padding), data["time_weekday"], font = font_weekday, fill = 255)
-    #draw_black.line((vline, height*1/8, width, height*1/8), fill = 0) #horizontal line
+    #draw_black.rectangle((vline, 0, width, height*1/8), fill = 0)
+    draw_black.text((vline+0.5*padding, padding), data["time_weekday"], font = font_weekday, fill = 0)
+    draw_black.line((vline, height*1/8, width, height*1/8), fill = 0) #horizontal line
     
     #Date
     draw_black.text((vline+0.5*padding, height*1/8+padding), data["time_date"] + data["time_year"], font = font_clock1em, fill = 0)
@@ -166,24 +166,26 @@ def fillBuffer(data, black, red):
 
     #Weather
     if(data["weather_error"] == False):
-        draw_black.text((vline+0.5*padding, height*3/8+padding), str(data["precipitation_int"]).zfill(2) + "." + str(data["precipitation_frac"]) + "%", font = font_clock1em, fill = 0)
-        draw_black.text((vline+0.5*padding+2*fontsize_clock, height*3/8+padding), "Regen- " , font = font_clock0em33, fill = 0)
-        draw_black.text((vline+0.5*padding+2*fontsize_clock, height*3/8+padding+fontsize_clock0em33), "wahrschein- " , font = font_clock0em33, fill = 0)
-        draw_black.text((vline+0.5*padding+2*fontsize_clock, height*3/8+padding+2*fontsize_clock0em33), "lichkeit" , font = font_clock0em33, fill = 0)
+        draw_black.text((vline+0.5*padding, height*3/8+padding), str(data["precipitation_int"]).zfill(2)) + "%", font = font_clock1em, fill = 0)
+        draw_black.text((vline+0.5*padding+1.5*fontsize_clock, height*3/8+padding), "Regen- " , font = font_clock0em33, fill = 0)
+        draw_black.text((vline+0.5*padding+1.5*fontsize_clock, height*3/8+padding+fontsize_clock0em33), "wahrschein- " , font = font_clock0em33, fill = 0)
+        draw_black.text((vline+0.5*padding+1.5*fontsize_clock, height*3/8+padding+2*fontsize_clock0em33), "lichkeit" , font = font_clock0em33, fill = 0)
         
     draw_black.line((vline, height*5/8, width, height*5/8), fill = 0) #horizontal line
 
     if(data["sensor_error"] == False):
-        draw_black.text((vline+0.5*padding, height*5/8+padding), str(data["humidity_int"]).zfill(2) + "." + str(data["humidity_frac"]) + "%", font = font_clock1em, fill = 0)
-        draw_black.text((vline+0.5*padding+2*fontsize_clock, height*5/8+padding), "Luft- " , font = font_clock0em33, fill = 0)
-        draw_black.text((vline+0.5*padding+2*fontsize_clock, height*5/8+padding+fontsize_clock0em33), "feuchtig- " , font = font_clock0em33, fill = 0)
-        draw_black.text((vline+0.5*padding+2*fontsize_clock, height*5/8+padding+2*fontsize_clock0em33), "keit" , font = font_clock0em33, fill = 0)
+        draw_black.text((vline+0.5*padding, height*5/8+padding), str(data["humidity_int"]).zfill(2)) + "%", font = font_clock1em, fill = 0)
+        draw_black.text((vline+0.5*padding+1.5*fontsize_clock, height*5/8+padding), "Luft- " , font = font_clock0em33, fill = 0)
+        draw_black.text((vline+0.5*padding+1.5*fontsize_clock, height*5/8+padding+fontsize_clock0em33), "feuchtig- " , font = font_clock0em33, fill = 0)
+        draw_black.text((vline+0.5*padding+1.5*fontsize_clock, height*5/8+padding+2*fontsize_clock0em33), "keit" , font = font_clock0em33, fill = 0)
 
 
     draw_black.line((vline, height*7/8, width, height*7/8), fill = 0) #horizontal line
     draw_black.text((vline+0.5*padding, height*7/8+padding), "Zuletzt aktualisiert: "+ data["time_date"] + data["time_year"] +" " + data["time_hours"] + ":" + data["time_minutes"], font = font_small, fill = 0)
 
     return 0
+
+
 
 try:
     logging.info("epd7in5b_HD Demo")
