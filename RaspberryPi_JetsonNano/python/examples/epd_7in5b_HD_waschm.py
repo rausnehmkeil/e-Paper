@@ -43,7 +43,6 @@ col1_font0em33 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), col1_f
 col1_font0em66 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), col1_fontsize0em66)
 
 font_small = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II.ttf'), 26)
-#font_weekday = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), 40)
 col2_font1em = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), col2_fontsize)
 col2_font0em66 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), col2_fontsize0em66)
 col2_font0em50 = ImageFont.truetype(os.path.join(fontdir, 'Oslo_II_Bold.ttf'), col2_fontsize0em50)
@@ -186,7 +185,7 @@ def fillBuffer(data, black, red):
 
 
     draw_black.line((vline, height*7/8, width, height*7/8), fill = 0) #horizontal line
-    draw_black.text((vline+col2_padding_left, height*7/8+0.5*col2_padding_top), "Zuletzt aktualisiert: "+ data["time_date"] + data["time_year"] +" " + data["time_hours"] + ":" + data["time_minutes"], font = font_small, fill = 0)
+    draw_black.text((vline+col2_padding_left, height*7/8+col2_padding_top), "Zuletzt aktualisiert: "+ data["time_date"] + data["time_year"] +" " + data["time_hours"] + ":" + data["time_minutes"], font = font_small, fill = 0)
 
     return 0
 
